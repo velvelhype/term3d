@@ -1,7 +1,7 @@
 #include "term3d.h"
 
 // commented by tyamagis
-
+// 2
 void	init_info(t_term *info)
 {
 	info->height = 30;
