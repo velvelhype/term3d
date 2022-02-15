@@ -4,14 +4,10 @@ void	init_info(t_term *info)
 {
 	info->height = 30;
 	info->width = 30;
-	info->screen_z = -5;
-	info->eye_pos.x = 0;
-	info->eye_pos.y = 0;
-	info->eye_pos.z = -10;
-	info->sphere_pos.x = 0;
-	info->sphere_pos.y = 0;
-	info->sphere_pos.z = 0;
-	info->sphere_r = 9;
+	info->screen_z = -10;
+	init_vector(&(info->eye_pos), 0, 0, -20);
+	init_vector(&(info->sphere_pos), 0, 0, 0);
+	info->sphere_r = 10;
 }
 
 int main()
@@ -25,11 +21,12 @@ int main()
 	{
 		while(x < info.height / 2)
 		{
-			// （x, y）が図形と衝突しているか判定
-			if (is_colided(x, y, &info) >= 0)
+			// （x, y）が円と衝突しているか判定
+			float D = is_colided(x, y, &info);
+			if (D >= 0)
 				printf("▩");
 			else
-				printf(" ");
+				printf(".");
 			printf(" ");
 			x++;
 		}
