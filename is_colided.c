@@ -19,17 +19,9 @@ typedef struct s_tri
 	t_vector v2;
 }	t_tri;
 
-float	moller97(t_vector eye_dir, t_term *info)
+float	judge(t_tri tri, t_vector eye_dir, t_term *info)
 {
-    // constexpr float kEpsilon = 1e-6f;
     float kEpsilon = 1e-6f;
-
-	t_tri	tri;
-
-	init_vector(&tri.v0, 0, 10, 0);
-	init_vector(&tri.v1, -20, -10, 0);
-	init_vector(&tri.v2, 10, 0, 20);
-
 	t_vector e1 = sub(&tri.v1, &tri.v0);
 	t_vector e2 = sub(&tri.v2, &tri.v0);
 	t_vector alpha;
@@ -53,8 +45,34 @@ float	moller97(t_vector eye_dir, t_term *info)
 	float t = dot(&e2,& beta) * invDet;
 	if (t < 0.0f)
 		return -1;
-
 	return 0;
+}
+
+float	moller97(t_vector eye_dir, t_term *info)
+{
+    // constexpr float kEpsilon = 1e-6f;
+	int max = 4;
+	t_tri	tri[max];
+	init_vector(&tri[0].v0, 5, 10, 0);
+	init_vector(&tri[0].v1, 0, -10, 0);
+	init_vector(&tri[0].v2, 10, 0, 0);
+
+	init_vector(&tri[1].v0, -10, 10, 0);
+	init_vector(&tri[1].v1, 0, -10, 0);
+	init_vector(&tri[1].v2, -10, 0, 0);
+
+	init_vector(&tri[2].v0, 30, -10, 0);
+	init_vector(&tri[2].v1, 0, -10, 0);
+	init_vector(&tri[2].v2, -10, -20, 0);
+
+	int i = 0;
+	while (i < max)
+	{
+		if (judge(tri[i], eye_dir, info) == 0)
+			return (1);
+		i++;
+	}
+	return (-1);
 }
 
 float	is_colided(int x, int y, t_term *info)
@@ -66,5 +84,6 @@ float	is_colided(int x, int y, t_term *info)
 	//二次方程式　今は円と衝突判定してる
 	// return (quadratic_equation(eye_dir, obj_to_eye, info));
 	//三角形との衝突計算
+
 	return (moller97(eye_dir, info));
 }

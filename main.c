@@ -5,7 +5,7 @@ void	init_info(t_term *info)
 	info->height = 30;
 	info->width = 30;
 	info->screen_z = -10;
-	init_vector(&(info->eye_pos), 0, 0, -20);
+	init_vector(&(info->eye_pos), 0, 0, -25);
 	init_vector(&(info->sphere_pos), 0, 0, 0);
 	info->sphere_r = 10;
 }
