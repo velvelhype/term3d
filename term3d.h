@@ -3,6 +3,25 @@
 
 #include "vector.h"
 
+typedef struct s_moller
+{
+	float	kEpsilon;
+	t_vector	e1;
+	t_vector	e2;
+	t_vector	alpha;
+	float	det;
+	float	invDet;
+	t_vector	r;
+	t_vector	beta;
+}	t_moller;
+
+typedef struct s_tri
+{
+	t_vector v0;
+	t_vector v1;
+	t_vector v2;
+}	t_tri;
+
 typedef struct s_term
 {
 	int width;

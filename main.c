@@ -18,8 +18,8 @@ int main()
 
 	init_info(&info);
 	int x = -1 * (info.width) / 2;
-	int y = -1 * (info.height) / 2;
-	while(y < info.width / 2)
+	int y = 1 * (info.height) / 2;
+	while(y > -1 * info.width / 2)
 	{
 		while(x < info.height / 2)
 		{
@@ -34,6 +34,6 @@ int main()
 		}
 		printf("\n");
 		x = -1 * (info.width) / 2;
-		y++;
+		y--;
 	}
 }
