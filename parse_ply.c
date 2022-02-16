@@ -112,33 +112,31 @@ t_ply	*parse_ply(char *filename)
 	return (ply_info);
 }
 
-/* test
-int	main(int ac, char **av)
-{
-	t_ply	*ply_info;
-	FILE	*f_stream;
-	char	*filename;
-	int		i;
+// int	main(int ac, char **av)
+// {
+// 	t_ply	*ply_info;
+// 	FILE	*f_stream;
+// 	char	*filename;
+// 	int		i;
 
-	filename = av[ac - 1];
-	ply_info = set_elem(filename);
-	printf("vertex : %d, face : %d\n", ply_info->elem_vertexes, ply_info->elem_faces);
-	printf("\nvertex list : \n");
-	i = 0;
-	while (i < ply_info->elem_vertexes)
-	{
-		printf("(%f, %f, %f)\n", ply_info->vertexes[i].x, ply_info->vertexes[i].y, ply_info->vertexes[i].z);
-		i++;
-	}
+// 	filename = av[ac - 1];
+// 	ply_info = parse_ply(filename);
+// 	printf("vertex : %d, face : %d\n", ply_info->elem_vertexes, ply_info->elem_faces);
+// 	printf("\nvertex list : \n");
+// 	i = 0;
+// 	while (i < ply_info->elem_vertexes)
+// 	{
+// 		printf("(%f, %f, %f)\n", ply_info->vertexes[i].x, ply_info->vertexes[i].y, ply_info->vertexes[i].z);
+// 		i++;
+// 	}
 	
-	printf("\nface list : \n");
-	i = 0;
-	while (i < ply_info->elem_faces)
-	{
-		printf("%d idx : %d %d %d\n", i, ply_info->faces[i].v1, ply_info->faces[i].v2, ply_info->faces[i].v3);
-		i++;
-	}
+// 	printf("\nface list : \n");
+// 	i = 0;
+// 	while (i < ply_info->elem_faces)
+// 	{
+// 		printf("%d idx : %d %d %d\n", i, ply_info->faces[i].v1, ply_info->faces[i].v2, ply_info->faces[i].v3);
+// 		i++;
+// 	}
 	
-	return (0);
-}
-*/
+// 	return (0);
+// }

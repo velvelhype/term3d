@@ -53,11 +53,11 @@ float	moller97(t_vector eye_dir, t_term *term_info, t_ply *ply_info)
 	while (i < ply_info->elem_faces)
 	{
 		tri.v0 = ply_info->vertexes[ply_info->faces[i].v1];
-		tri.v0 = mult(&tri.v0, 3);
+		tri.v0 = mult(&tri.v0, 7);
 		tri.v1 = ply_info->vertexes[ply_info->faces[i].v2];
-		tri.v1 = mult(&tri.v1, 3);
+		tri.v1 = mult(&tri.v1, 7);
 		tri.v2 = ply_info->vertexes[ply_info->faces[i].v3];
-		tri.v2 = mult(&tri.v2, 3);
+		tri.v2 = mult(&tri.v2, 7);
  		mult(&tri.v2, 10);
 		if (is_ray_in_tri(tri, eye_dir, term_info) == 0)
 			return (1);
@@ -70,7 +70,7 @@ float	moller97(t_vector eye_dir, t_term *term_info, t_ply *ply_info)
 float	is_colided(int x, int y, t_term *term_info, t_ply *ply_info)
 {
 
-	int i = 0;
+	// int i = 0;
 	// while (i < ply_info->elem_vertexes)
 	// {
 	// 	printf("(%f, %f, %f)\n", ply_info->vertexes[i].x, ply_info->vertexes[i].y, ply_info->vertexes[i].z);
@@ -84,6 +84,7 @@ float	is_colided(int x, int y, t_term *term_info, t_ply *ply_info)
 	// 	printf("%d idx : %d %d %d\n", i, ply_info->faces[i].v1, ply_info->faces[i].v2, ply_info->faces[i].v3);
 	// 	i++;
 	// }
+	// return 0;
 
 	// calculate eyedir
 	t_vector screen_pos  = {x, y, term_info->screen_z};

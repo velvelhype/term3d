@@ -2,11 +2,10 @@
 #include "./include/parse_ply.h"
 
 // commented by tyamagis
-// 2
 void	init_info(t_term *info)
 {
-	info->height = 30;
-	info->width = 30;
+	info->height = 100;
+	info->width = 100;
 	info->screen_z = 0;
 	init_vector(&(info->eye_pos), 0, 0, -10);
 	init_vector(&(info->sphere_pos), 0, 0, 0);
