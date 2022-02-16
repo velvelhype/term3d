@@ -6,12 +6,17 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:40:51 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/16 14:54:39 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/16 15:56:22 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PLY_H
 # define PLY_H
+
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct s_face
 {
