@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:56:58 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/16 18:17:02 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/16 18:26:32 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,13 @@ void	*set_vertexes(t_ply *ply, FILE *f_stream)
 	return (ply->vertexes);
 }
 
-t_ply	*set_elem(FILE *f_stream)
+t_ply	*set_elem(char *filename)
 {
 	t_ply	*ply;
 	char	str[100];
+	FILE	*f_stream;
 
+	f_stream = fopen(filename, "r");
 	ply = (t_ply *)malloc(sizeof(t_ply));
 	// add NULL check later.
 	while (strcmp(str, "end_header"))
@@ -110,7 +112,7 @@ t_ply	*set_elem(FILE *f_stream)
 	return (ply);
 }
 
-/* test */
+/* test
 int	main(int ac, char **av)
 {
 	t_ply	*ply;
@@ -119,8 +121,7 @@ int	main(int ac, char **av)
 	int		i;
 
 	filename = av[ac - 1];
-	f_stream = fopen(filename, "r");
-	ply = set_elem(f_stream);
+	ply = set_elem(filename);
 	printf("vertex : %d, face : %d\n", ply->elem_vertex, ply->elem_face);
 	printf("\nvertex list : \n");
 	i = 0;
@@ -140,3 +141,4 @@ int	main(int ac, char **av)
 	
 	return (0);
 }
+*/
