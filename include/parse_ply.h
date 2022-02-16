@@ -17,6 +17,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../vector.h"
+
 
 typedef struct s_face
 {
@@ -25,18 +27,11 @@ typedef struct s_face
 	int	v3;
 } t_face;
 
-typedef struct s_vertex
-{
-	float	x;
-	float	y;
-	float	z;
-} t_vertex;
-
 typedef struct s_ply
 {
 	int			elem_vertexes;
 	int			elem_faces;
-	t_vertex	*vertexes;
+	t_vector	*vertexes;
 	t_face		*faces;
 } t_ply;
 

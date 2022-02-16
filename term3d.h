@@ -32,11 +32,13 @@ typedef struct s_term
 	int			sphere_r;
 } t_term;
 
-float	is_colided(int x, int y, t_term *info);
+#include "./include/parse_ply.h"
+float	is_colided(int x, int y, t_term *info, t_ply *ply_info);
 
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include "./include/parse_ply.h"
 
 #endif
