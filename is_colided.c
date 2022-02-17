@@ -12,7 +12,7 @@ float	quadratic_equation(t_vector eye_dir, t_vector obj_to_eye, t_term *term_inf
 	return (D);
 }
 
-void	init_t_moller(t_vector eye_dir, t_moller *vars, t_term *term_info, t_tri *tri)
+void	init_t_moller_vars(t_vector eye_dir, t_moller *vars, t_term *term_info, t_tri *tri)
 {
     vars->kEpsilon = 1e-6f;
 	vars->e1 = sub(&tri->v1, &tri->v0);
@@ -28,7 +28,8 @@ void	init_t_moller(t_vector eye_dir, t_moller *vars, t_term *term_info, t_tri *t
 float	is_ray_in_tri(t_tri tri, t_vector eye_dir, t_term *term_info)
 {
 	t_moller vars;
-	init_t_moller(eye_dir, &vars, term_info, &tri);
+
+	init_t_moller_vars(eye_dir, &vars, term_info, &tri);
 
 	if (-vars.kEpsilon < vars.det && vars.det < vars.kEpsilon)
 		return -1;
@@ -45,52 +46,53 @@ float	is_ray_in_tri(t_tri tri, t_vector eye_dir, t_term *term_info)
 	return 0;
 }
 
-float	moller97(t_vector eye_dir, t_term *term_info, t_ply *ply_info)
+void	vertex_conversion(t_vector *vertex, t_term *term_info)
+{
+	//TODO 回転させる
+	// zに関しての回転
+	// まず半径出す
+	// x^2 + y^2 = r^2;
+	float r = pow(vertex->x, 2.0f) + pow(vertex->y, 2.0f);
+	r = sqrt(r);
+
+	float new_x;
+	float new_y;
+	new_x = vertex->x * cos(degToRad(term_info->deg)) 
+	- vertex->y * sin(degToRad(term_info->deg));
+	new_y = vertex->x * sin(degToRad(term_info->deg))
+	+ vertex->y * cos(degToRad(term_info->deg)); 
+	vertex->x = new_x;
+	vertex->y = new_y;
+
+	*vertex = mult(vertex, term_info->zoom);
+}
+
+float	moller97(t_vector  eye_dir, t_term *term_info, t_ply *ply_info)
 {
 	t_tri	tri;
-
 	int i = 0;
+
 	while (i < ply_info->elem_faces)
 	{
 		tri.v0 = ply_info->vertexes[ply_info->faces[i].v1];
-		tri.v0 = mult(&tri.v0, 7);
+		vertex_conversion(&tri.v0, term_info);
 		tri.v1 = ply_info->vertexes[ply_info->faces[i].v2];
-		tri.v1 = mult(&tri.v1, 7);
+		vertex_conversion(&tri.v1, term_info);
 		tri.v2 = ply_info->vertexes[ply_info->faces[i].v3];
-		tri.v2 = mult(&tri.v2, 7);
- 		mult(&tri.v2, 10);
+		vertex_conversion(&tri.v2, term_info);
 		if (is_ray_in_tri(tri, eye_dir, term_info) == 0)
 			return (1);
 		i++;
 	}
-
 	return (-1);
 }
 
 float	is_colided(int x, int y, t_term *term_info, t_ply *ply_info)
 {
-
-	// int i = 0;
-	// while (i < ply_info->elem_vertexes)
-	// {
-	// 	printf("(%f, %f, %f)\n", ply_info->vertexes[i].x, ply_info->vertexes[i].y, ply_info->vertexes[i].z);
-	// 	i++;
-	// }
-	
-	// printf("\nface list : \n");
-	// i = 0;
-	// while (i < ply_info->elem_faces)
-	// {
-	// 	printf("%d idx : %d %d %d\n", i, ply_info->faces[i].v1, ply_info->faces[i].v2, ply_info->faces[i].v3);
-	// 	i++;
-	// }
-	// return 0;
-
-	// calculate eyedir
 	t_vector screen_pos  = {x, y, term_info->screen_z};
 	t_vector eye_dir = sub(&screen_pos, &(term_info->eye_pos));
 	t_vector obj_to_eye = sub(&(term_info->eye_pos), &(term_info->sphere_pos));
-	// 二次方程式　今は円と衝突判定してる
+	// 二次方程式　円と衝突判定するやつ
 	// return (quadratic_equation(eye_dir, obj_to_eye, term_info));
 	// 三角ポリゴンとの衝突計算
 	return (moller97(eye_dir, term_info, ply_info));

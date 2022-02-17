@@ -27,10 +27,16 @@ typedef struct s_term
 	int width;
 	int height;
 	int screen_z;
+	int	zoom;
+	float	deg;
 	t_vector	eye_pos;
 	t_vector	sphere_pos;
 	int			sphere_r;
 } t_term;
+
+#define M_PI   3.14159265358979323846264338327950288
+#define degToRad(angleInDegrees) ((angleInDegrees) * M_PI / 180.0)
+#define radToDeg(angleInRadians) ((angleInRadians) * 180.0 / M_PI)
 
 #include "./include/parse_ply.h"
 float	is_colided(int x, int y, t_term *info, t_ply *ply_info);
@@ -39,6 +45,7 @@ float	is_colided(int x, int y, t_term *info, t_ply *ply_info);
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <math.h>
 #include "./include/parse_ply.h"
 
 #endif
