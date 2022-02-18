@@ -33,6 +33,8 @@ typedef struct s_term
 {
 	int			width;
 	int			height;
+	int			lim_x;
+	int			lim_y;
 	int			screen_z;
 	int			zoom;
 	float		deg;
@@ -42,5 +44,7 @@ typedef struct s_term
 }	t_term;
 
 float	is_colided(int x, int y, t_term *info, t_ply *ply_info);
+void	loop_draw(t_term *tm, t_ply *ply);
+int		exit_me(void);
 
 #endif

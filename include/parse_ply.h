@@ -6,26 +6,25 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:40:51 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/18 15:26:48 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/18 22:13:27 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PLY_H
-# define PLY_H
+#ifndef PARSE_PLY_H
+# define PARSE_PLY_H
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "vector.h"
-
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include "vector.h"
 
 typedef struct s_face
 {
 	int	v1;
 	int	v2;
 	int	v3;
-} t_face;
+}	t_face;
 
 typedef struct s_ply
 {
@@ -33,7 +32,7 @@ typedef struct s_ply
 	int			elem_faces;
 	t_vector	*vertexes;
 	t_face		*faces;
-} t_ply;
+}	t_ply;
 
 t_ply	*parse_ply(char *filename);
 void	*set_vertexes(t_ply *ply, FILE *f_stream);
