@@ -10,12 +10,30 @@ int	calc(int a, int b)
 	return (ret);
 }
 
-void	mthread(void)
-{
-
-}
-
 int	main(void)
 {
-	printf("no therad calc\n");
-	
+	int a = 0;
+	int b = 1;
+	clock_t	start, end;
+
+	printf("calc without therads\n");
+	// timer start
+	while (a < 100000)
+		calc(a++, b++);
+	// timer end
+	// print time
+
+	a = 0;
+	b = 1;
+	printf("calc with threads\n");
+	// timer start
+	// create threads
+	// timer end
+	// print time
+	//
+	// timer start
+	// calc()
+	// timer end
+	// print time
+	return (0);
+}
