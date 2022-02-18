@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:56:58 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/18 20:45:40 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/18 21:17:05 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ void	*poly_to_tri(t_ply *ply_info, FILE *f_stream, int *read, int vtx)
 
 	new_elm = ply_info->elem_faces + vtx - 3;
 	faces = recreate_faces(ply_info, ply_info->faces, read, new_elm);
-	fscanf(f_stream, "%d %d %d", &faces[*read].v1, &faces[*read].v2, \
-			&faces[*read].v3);
+	if (!fscanf(f_stream, "%d %d %d", &faces[*read].v1, &faces[*read].v2, \
+			&faces[*read].v3))
+		exit_me();
 	v1 = faces[*read].v1;
 	v3 = faces[*read].v3;
 	(*read)++;
@@ -53,7 +54,8 @@ void	*poly_to_tri(t_ply *ply_info, FILE *f_stream, int *read, int vtx)
 	{
 		faces[*read].v1 = v1;
 		faces[*read].v2 = v3;
-		fscanf(f_stream, "%d", &faces[*read].v3);
+		if (!fscanf(f_stream, "%d", &faces[*read].v3))
+			exit_me();
 		v3 = faces[*read].v3;
 		(*read)++;
 	}
@@ -70,11 +72,13 @@ void	*set_faces(t_ply *ply_info, FILE *f_stream)
 	i = 0;
 	while (i < ply_info->elem_faces)
 	{
-		fscanf(f_stream, "%d", &num_of_vtx);
+		if (!fscanf(f_stream, "%d", &num_of_vtx))
+			exit_me();
 		if (num_of_vtx == 3)
 		{
-			fscanf(f_stream, "%d %d %d", &faces[i].v1, \
-					&faces[i].v2, &faces[i].v3);
+			if (!fscanf(f_stream, "%d %d %d", &faces[i].v1, \
+					&faces[i].v2, &faces[i].v3))
+				exit_me();
 			i++;
 		}
 		else
@@ -98,7 +102,8 @@ void	*set_vertexes(t_ply *ply, FILE *f_stream)
 	i = 0;
 	while (i++ < ply->elem_vertexes)
 	{
-		fscanf(f_stream, "%f %f %f", &vtx->x, &vtx->y, &vtx->z);
+		if (!fscanf(f_stream, "%f %f %f", &vtx->x, &vtx->y, &vtx->z))
+			exit_me();
 		vtx++;
 	}
 	return (ply->vertexes);
@@ -109,22 +114,25 @@ t_ply	*parse_ply(char *filename)
 	t_ply	*ply_info;
 	char	str[100];
 	FILE	*f_stream;
+	int		ret;
 
 	f_stream = fopen(filename, "r");
 	ply_info = (t_ply *)malloc(sizeof(t_ply));
 	if (f_stream == NULL || ply_info == NULL)
 		exit_me();
-	fscanf(f_stream, "%s", str);
+	ret = fscanf(f_stream, "%s", str);
 	if (strcmp(str, "ply"))
 		exit_me();
 	while (strcmp(str, "end_header"))
 	{
 		fscanf(f_stream, "%s", str);
 		if (strcmp(str, "vertex") == 0)
-			fscanf(f_stream, "%d", &ply_info->elem_vertexes);
+			ret += fscanf(f_stream, "%d", &ply_info->elem_vertexes);
 		else if (strcmp(str, "face") == 0)
-			fscanf(f_stream, "%d", &ply_info->elem_faces);
+			ret += fscanf(f_stream, "%d", &ply_info->elem_faces);
 	}
+	if (ret != 3)
+		exit_me();
 	set_vertexes(ply_info, f_stream);
 	set_faces(ply_info, f_stream);
 	return (ply_info);
