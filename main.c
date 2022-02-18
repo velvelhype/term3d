@@ -22,7 +22,6 @@ int main(int argc, char **argv)
 	char	*output_data;
 	char	*tmp;
 	size_t	datasize;
-	int		frame;
 
 	if(argc != 2)
 		return 0;
@@ -35,10 +34,8 @@ int main(int argc, char **argv)
 	datasize = (term_info.width + 1) * (term_info.height + 1) + 1;
 	output_data = (char *)malloc(datasize);
 	tmp = output_data;
-	frame = 0;
 	while(1)
 	{
-		printf("%d\n", frame++);
 		output_data = tmp;
 		fprintf(stdout, "\033[2J\033[2H");
 		while(y > -1 * term_info.width / 2)
@@ -63,6 +60,8 @@ int main(int argc, char **argv)
 		}
 		memset(output_data, '\0', 1);
 		printf("%s", tmp);
+		if (term_info.deg > 360)
+			term_info.deg -= 360;
 		term_info.deg += 10;
 		y = 1 * (term_info.height) / 2;
 		usleep(50000);
