@@ -56,7 +56,6 @@ int main()
     vector_t pw;
 
     pw.z = 0;
-
     mlx = mlx_init(); //fileopenの時のfd的な？
     mlx_win = mlx_new_window(mlx, width, height, "test");
     // mlx_win = mlx_new_window(スクリーン識別子, width, height,"test");
@@ -88,9 +87,7 @@ int main()
         }
         y++;
     }
-
     mlx_loop(mlx);
-
     //無限ループを作り、その間ウィンドウを表示させ続ける
     //最初のうちはcntl+Cで強制終了すればおk
     //クリックした時に終了させるなどのプログラムはゆくゆく書く必要がある

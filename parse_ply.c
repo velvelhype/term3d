@@ -86,7 +86,7 @@ void	*set_faces(t_ply *ply_info, FILE *f_stream)
 void	*set_vertexes(t_ply *ply_info, FILE *f_stream)
 {
 	int			i;
-	t_vertex	*vtx;
+	t_vector	*vtx;
 
 	vtx = ply_info->vertexes;
 	i = 0;
@@ -115,7 +115,7 @@ t_ply	*parse_ply(char *filename)
 		else if (strcmp(str, "face") == 0)
 			fscanf(f_stream, "%d", &ply_info->elem_faces);
 	}
-	ply_info->vertexes = (t_vertex *)malloc(sizeof(t_vertex) * ply_info->elem_vertexes);
+	ply_info->vertexes = (t_vector *)malloc(sizeof(t_vector) * ply_info->elem_vertexes);
 	ply_info->faces = (t_face *)malloc(sizeof(t_face) * ply_info->elem_faces);
 	// add NULL check later.
 	printf("first elem_face : %d\n", ply_info->elem_faces);
@@ -124,33 +124,33 @@ t_ply	*parse_ply(char *filename)
 	return (ply_info);
 }
 
-// test
-int	main(int ac, char **av)
-{
-	t_ply	*ply_info;
-	FILE	*f_stream;
-	char	*filename;
-	int		i;
+// // test
+// int	main(int ac, char **av)
+// {
+// 	t_ply	*ply_info;
+// 	FILE	*f_stream;
+// 	char	*filename;
+// 	int		i;
 
-	filename = av[ac - 1];
-	ply_info = parse_ply(filename);
-	printf("vertex : %d, face : %d\n", ply_info->elem_vertexes, ply_info->elem_faces);
-	printf("\nvertex list : \n");
-	i = 0;
-	while (i < ply_info->elem_vertexes)
-	{
-		printf("(%f, %f, %f)\n", ply_info->vertexes[i].x, ply_info->vertexes[i].y, ply_info->vertexes[i].z);
-		i++;
-	}
+// 	filename = av[ac - 1];
+// 	ply_info = parse_ply(filename);
+// 	printf("vertex : %d, face : %d\n", ply_info->elem_vertexes, ply_info->elem_faces);
+// 	printf("\nvertex list : \n");
+// 	i = 0;
+// 	while (i < ply_info->elem_vertexes)
+// 	{
+// 		printf("(%f, %f, %f)\n", ply_info->vertexes[i].x, ply_info->vertexes[i].y, ply_info->vertexes[i].z);
+// 		i++;
+// 	}
 	
-	printf("\nface list : \n");
-	i = 0;
-	while (i < ply_info->elem_faces)
-	{
-		printf("%d idx : %d %d %d\n", i, ply_info->faces[i].v1, ply_info->faces[i].v2, ply_info->faces[i].v3);
-		i++;
-	}
+// // 	printf("\nface list : \n");
+// // 	i = 0;
+// // 	while (i < ply_info->elem_faces)
+// // 	{
+// // 		printf("%d idx : %d %d %d\n", i, ply_info->faces[i].v1, ply_info->faces[i].v2, ply_info->faces[i].v3);
+// // 		i++;
+// // 	}
 	
-	return (0);
-}
-//*/
+// 	return (0);
+// }
+// //*/

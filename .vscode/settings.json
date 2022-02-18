@@ -1,5 +1,7 @@
 {
 	"files.associations": {
-		"term3d.h": "c"
+		"term3d.h": "c",
+		"__locale": "c",
+		"parse_ply.h": "c"
 	}
 }
