@@ -4,8 +4,8 @@
 // commented by tyamagis
 void	init_info(t_term *info)
 {
-	info->height = 80;
-	info->width = 80;
+	info->height = 60;
+	info->width = 60;
 	info->screen_z = 0;
 	init_vector(&(info->eye_pos), 0, 0, -10);
 	init_vector(&(info->sphere_pos), 0, 0, 0);
@@ -30,8 +30,7 @@ int main(int argc, char **argv)
 	int y = 1 * (term_info.height) / 2;
 	while(1)
 	{
-
-
+	fprintf(stdout, "\033[2J\033[2H");
 	while(y > -1 * term_info.width / 2)
 	{
 		while(x < term_info.height / 2)
@@ -49,7 +48,6 @@ int main(int argc, char **argv)
 		x = -1 * (term_info.width) / 2;
 		y--;
 	}
-
 
 	printf("\n");
 	term_info.deg += 10;

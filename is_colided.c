@@ -24,7 +24,6 @@ void	init_t_moller_vars(t_vector eye_dir, t_moller *vars, t_term *term_info, t_t
 	cross(&vars->beta, &vars->r, &vars->e1);
 }
 
-
 float	is_ray_in_tri(t_tri tri, t_vector eye_dir, t_term *term_info)
 {
 	t_moller vars;
@@ -48,22 +47,15 @@ float	is_ray_in_tri(t_tri tri, t_vector eye_dir, t_term *term_info)
 
 void	vertex_conversion(t_vector *vertex, t_term *term_info)
 {
-	//TODO 回転させる
-	// zに関しての回転
-	// まず半径出す
-	// x^2 + y^2 = r^2;
-	float r = pow(vertex->x, 2.0f) + pow(vertex->y, 2.0f);
-	r = sqrt(r);
-
 	float new_x;
 	float new_y;
+
 	new_x = vertex->x * cos(degToRad(term_info->deg)) 
 	- vertex->y * sin(degToRad(term_info->deg));
 	new_y = vertex->x * sin(degToRad(term_info->deg))
 	+ vertex->y * cos(degToRad(term_info->deg)); 
 	vertex->x = new_x;
 	vertex->y = new_y;
-
 	*vertex = mult(vertex, term_info->zoom);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:40:51 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/16 22:51:25 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/18 15:26:48 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_ply
 t_ply	*parse_ply(char *filename);
 void	*set_vertexes(t_ply *ply, FILE *f_stream);
 void	*set_faces(t_ply *ply, FILE *f_stream);
-void	*poly_to_tri(t_ply *ply, int n, FILE **f_stream);
+void	*poly_to_tri(t_ply *ply, FILE *f_stream, int *read, int vtx);
+void	*recreate_faces(t_ply *ply_info, t_face *old, int *read, int elm);
 
 #endif
