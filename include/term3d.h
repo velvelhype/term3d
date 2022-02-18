@@ -1,7 +1,14 @@
 #ifndef TERM3D_H
 # define TERM3D_H
+# define M_PI   3.14159265358979323846264338327950288
 
 # include "vector.h"
+# include <stdio.h>
+# include <string.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <math.h>
+# include "parse_ply.h"
 
 typedef struct s_moller
 {
@@ -36,20 +43,8 @@ typedef struct s_term
 	int			sphere_r;
 }	t_term;
 
-#define M_PI   3.14159265358979323846264338327950288
-#define degToRad(angleInDegrees) ((angleInDegrees) * M_PI / 180.0)
-#define radToDeg(angleInRadians) ((angleInRadians) * 180.0 / M_PI)
-
-#include "./include/parse_ply.h"
 float	is_colided(int x, int y, t_term *info, t_ply *ply_info);
 void	loop_draw(t_term *tm, t_ply *ply);
 int		exit_me(void);
-
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <math.h>
-#include "./include/parse_ply.h"
 
 #endif

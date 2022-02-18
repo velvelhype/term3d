@@ -1,4 +1,4 @@
-#include "term3d.h"
+#include "./include/term3d.h"
 #include "./include/parse_ply.h"
 
 int	exit_me(void)
@@ -9,17 +9,16 @@ int	exit_me(void)
 
 void	init_info(t_term *info)
 {
-	info->height = 60; // GET terminal size
-	info->width = 60; // GET terminal size
+	info->height = 100;
+	info->width = 100;
 	info->lim_x = info->height * 0.5;
 	info->lim_y = info->width * -0.5;
 	info->screen_z = 0;
-	init_vector(&(info->eye_pos), 0, 0, -50);
+	init_vector(&(info->eye_pos), 0, 0, -100);
 	init_vector(&(info->sphere_pos), 0, 0, 0);
 	info->sphere_r = 10;
 	info->zoom = 8;
-	info->deg = 0;
-	return ;
+	info->deg = 0.01;
 }
 
 int	main(int argc, char **argv)

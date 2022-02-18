@@ -6,12 +6,12 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:56:58 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/18 21:17:05 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/18 22:08:09 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/parse_ply.h"
-#include "term3d.h"
+#include "./include/term3d.h"
 
 void	*recreate_faces(t_ply *ply_info, t_face *old, int *read, int elm)
 {

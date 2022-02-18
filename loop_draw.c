@@ -6,11 +6,11 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:03:14 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/18 20:31:06 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/18 22:07:52 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "term3d.h"
+#include "./include/term3d.h"
 #include "./include/parse_ply.h"
 
 void	set_char(float d, char *data)

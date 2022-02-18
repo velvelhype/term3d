@@ -2,6 +2,8 @@
 	"files.associations": {
 		"term3d.h": "c",
 		"__locale": "c",
-		"parse_ply.h": "c"
+		"parse_ply.h": "c",
+		"stdio.h": "c",
+		"algorithm": "cpp"
 	}
 }

@@ -1,78 +1,32 @@
-#include "vector.h"
-
+#include "./include/vector.h"
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
 
 void	init_vector(t_vector *vec, float arg_x, float arg_y, float arg_z)
 {
-  vec->x = arg_x;
-  vec->y = arg_y;
-  vec->z = arg_z;
+	vec->x = arg_x;
+	vec->y = arg_y;
+	vec->z = arg_z;
 }
 
-t_vector add(const t_vector* a, const t_vector* b)
+float	squared_norm(const t_vector*v)
 {
-    t_vector ret;
-    ret.x = a->x + b->x;
-    ret.y = a->y + b->y;
-    ret.z = a->z + b->z;
-    return  ret;
+	return (sqrt(v->x) + sqrt(v->y) + sqrt(v->z));
 }
 
-t_vector sub(const t_vector* a, const t_vector* b)
+float	norm(const t_vector *v)
 {
-    t_vector ret;
-    ret.x = a->x - b->x;
-    ret.y = a->y - b->y;
-    ret.z = a->z - b->z;
-    return  ret;
+	return (sqrt(squared_norm(v)));
 }
 
-t_vector mult(const t_vector* a, float b)
+float	normalize(t_vector *v)
 {
-    t_vector ret;
-    ret.x = a->x * b;
-    ret.y = a->y * b;
-    ret.z = a->z * b;
-    return  ret;
-}
+	float	vnorm;
 
-float dot(const t_vector* a, const t_vector* b)
-{
-  return a->x * b->x + a->y * b->y + a->z * b->z;
-}
-
-void cross(t_vector* o, const t_vector*a, const t_vector*b)
-{
-  o->x = a->y * b->z - a->z * b->y;
-  o->y = a->z * b->x - a->x * b->z;
-  o->z = a->x * b->y - a->y * b->x;
-}
-
-float squared_norm(const t_vector*v)
-{
-  return SQR(v->x) + SQR(v->y) + SQR(v->z);
-}
-
-float norm(const t_vector *v)
-{
-  return sqrt(squared_norm(v));
-}
-
-float normalize(t_vector* v)
-{
-  float vnorm = norm(v);
-  v->x /= vnorm;
-  v->y /= vnorm;
-  v->z /= vnorm;
-  return vnorm;
-}
-
-const char* vector_str(const t_vector*v)
-{
-  static char buf[1024];
-  memset(buf, 0, sizeof(buf));
-  sprintf((void*)buf, "(%f, %f, %f)", v->x, v->y, v->z);
-  return buf;
+	vnorm = norm(v);
+	v->x /= vnorm;
+	v->y /= vnorm;
+	v->z /= vnorm;
+	return (vnorm);
 }
