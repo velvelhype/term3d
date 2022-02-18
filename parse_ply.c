@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:56:58 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/18 18:02:47 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/18 20:45:40 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	*recreate_faces(t_ply *ply_info, t_face *old, int *read, int elm)
 void	*poly_to_tri(t_ply *ply_info, FILE *f_stream, int *read, int vtx)
 {
 	int		new_elm;
-	int		i;
 	int		v1;
 	int		v3;
 	t_face	*faces;
