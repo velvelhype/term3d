@@ -1,17 +1,17 @@
-#include "term3d.h"
+#include "./include/term3d.h"
 #include "./include/parse_ply.h"
 
 // commented by tyamagis
 void	init_info(t_term *info)
 {
-	info->height = 60;
-	info->width = 60;
+	info->height = 100;
+	info->width = 100;
 	info->screen_z = 0;
-	init_vector(&(info->eye_pos), 0, 0, -10);
+	init_vector(&(info->eye_pos), 0, 0, -100);
 	init_vector(&(info->sphere_pos), 0, 0, 0);
 	info->sphere_r = 10;
 	info->zoom= 8;
-	info->deg = 0;
+	info->deg = 0.01;
 }
 
 int main(int argc, char **argv)
