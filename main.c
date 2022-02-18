@@ -23,9 +23,9 @@ void	set_char(int *xy, char *data, t_term *tm, t_ply *ply)
 {
 	float	d;
 
-	while (xy[1] > -1 * tm.width / 2)
+	while (xy[1] > -1 * tm->width / 2)
 	{
-		while (xy[0] < tm.height / 2)
+		while (xy[0] < tm->height / 2)
 		{
 			d = is_colided(xy[0], xy[1], tm, ply);
 			if (d >= 0)
@@ -40,7 +40,7 @@ void	set_char(int *xy, char *data, t_term *tm, t_ply *ply)
 		}
 		memset(data, '\n', 1);
 		data++;
-		xy[0] = -1 * (tm.width) / 2;
+		xy[0] = -1 * (tm->width) / 2;
 		xy[1]--;
 	}
 	memset(data, '\0', 1);
@@ -64,9 +64,9 @@ int	main(int argc, char **argv)
 	data = (char *)malloc(datasize);
 	while (1)
 	{
-		fprintf(stdout, "\033[2J\033[2H");
 		set_char(xy, data, &tm, ply);
-		printf("%s", data);
+		fprintf(stderr, "\033[2J\033[2H");
+		fprintf(stderr, "%s", data);
 		if (tm.deg > 360)
 			tm.deg -= 360;
 		tm.deg += 10;
