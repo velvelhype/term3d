@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:56:58 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/18 15:28:23 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/18 17:26:24 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*recreate_faces(t_ply *ply_info, t_face *old, int *read, int elm)
 
 	new = (t_face *)malloc(sizeof(t_face) * elm);
 	if (new == NULL)
-		return (NULL); // or replace EXIT;
+		exit_me();
 	i = 0;
 	while (i < *read)
 	{
@@ -44,7 +44,8 @@ void	*poly_to_tri(t_ply *ply_info, FILE *f_stream, int *read, int vtx)
 
 	new_elm = ply_info->elem_faces + vtx - 3;
 	faces = recreate_faces(ply_info, ply_info->faces, read, new_elm);
-	fscanf(f_stream, "%d %d %d", &faces[*read].v1, &faces[*read].v2, &faces[*read].v3);
+	fscanf(f_stream, "%d %d %d", &faces[*read].v1, &faces[*read].v2, \
+			&faces[*read].v3);
 	v1 = faces[*read].v1;
 	v3 = faces[*read].v3;
 	(*read)++;
@@ -69,10 +70,11 @@ void	*set_faces(t_ply *ply_info, FILE *f_stream)
 	i = 0;
 	while (i < ply_info->elem_faces)
 	{
-		fscanf(f_stream, "%d", &num_of_vtx); // GET number of Vertex
+		fscanf(f_stream, "%d", &num_of_vtx);
 		if (num_of_vtx == 3)
 		{
-			fscanf(f_stream, "%d %d %d", &faces[i].v1, &faces[i].v2, &faces[i].v3);
+			fscanf(f_stream, "%d %d %d", &faces[i].v1, \
+					&faces[i].v2, &faces[i].v3);
 			i++;
 		}
 		else
@@ -83,19 +85,23 @@ void	*set_faces(t_ply *ply_info, FILE *f_stream)
 	return (ply_info->faces);
 }
 
-void	*set_vertexes(t_ply *ply_info, FILE *f_stream)
+void	*set_vertexes(t_ply *ply, FILE *f_stream)
 {
 	int			i;
 	t_vector	*vtx;
 
-	vtx = ply_info->vertexes;
+	ply->vertexes = (t_vector *)malloc(sizeof(t_vector) * ply->elem_vertexes);
+	ply->faces = (t_face *)malloc(sizeof(t_face) * ply->elem_faces);
+	if (ply->vertexes == NULL || ply->faces == NULL)
+		exit_me();
+	vtx = ply->vertexes;
 	i = 0;
-	while (i++ < ply_info->elem_vertexes)
+	while (i++ < ply->elem_vertexes)
 	{
 		fscanf(f_stream, "%f %f %f", &vtx->x, &vtx->y, &vtx->z);
 		vtx++;
 	}
-	return (ply_info->vertexes);
+	return (ply->vertexes);
 }
 
 t_ply	*parse_ply(char *filename)
@@ -106,7 +112,11 @@ t_ply	*parse_ply(char *filename)
 
 	f_stream = fopen(filename, "r");
 	ply_info = (t_ply *)malloc(sizeof(t_ply));
-	// add NULL check later.
+	if (f_stream == NULL || ply_info == NULL)
+		exit_me();
+	fscanf(f_stream, "%s", str);
+	if (strcmp(str, "ply"))
+		exit_me();
 	while (strcmp(str, "end_header"))
 	{
 		fscanf(f_stream, "%s", str);
@@ -115,42 +125,7 @@ t_ply	*parse_ply(char *filename)
 		else if (strcmp(str, "face") == 0)
 			fscanf(f_stream, "%d", &ply_info->elem_faces);
 	}
-	ply_info->vertexes = (t_vector *)malloc(sizeof(t_vector) * ply_info->elem_vertexes);
-	ply_info->faces = (t_face *)malloc(sizeof(t_face) * ply_info->elem_faces);
-	// add NULL check later.
-	printf("first elem_face : %d\n", ply_info->elem_faces);
 	set_vertexes(ply_info, f_stream);
 	set_faces(ply_info, f_stream);
 	return (ply_info);
 }
-
-// // test
-// int	main(int ac, char **av)
-// {
-// 	t_ply	*ply_info;
-// 	FILE	*f_stream;
-// 	char	*filename;
-// 	int		i;
-
-// 	filename = av[ac - 1];
-// 	ply_info = parse_ply(filename);
-// 	printf("vertex : %d, face : %d\n", ply_info->elem_vertexes, ply_info->elem_faces);
-// 	printf("\nvertex list : \n");
-// 	i = 0;
-// 	while (i < ply_info->elem_vertexes)
-// 	{
-// 		printf("(%f, %f, %f)\n", ply_info->vertexes[i].x, ply_info->vertexes[i].y, ply_info->vertexes[i].z);
-// 		i++;
-// 	}
-	
-// // 	printf("\nface list : \n");
-// // 	i = 0;
-// // 	while (i < ply_info->elem_faces)
-// // 	{
-// // 		printf("%d idx : %d %d %d\n", i, ply_info->faces[i].v1, ply_info->faces[i].v2, ply_info->faces[i].v3);
-// // 		i++;
-// // 	}
-	
-// 	return (0);
-// }
-// //*/
