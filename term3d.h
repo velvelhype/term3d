@@ -40,6 +40,7 @@ typedef struct s_term
 
 #include "./include/parse_ply.h"
 float	is_colided(int x, int y, t_term *info, t_ply *ply_info);
+int		exit_me(void);
 
 #include <stdio.h>
 #include <string.h>

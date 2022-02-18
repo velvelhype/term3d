@@ -1,69 +1,76 @@
 #include "term3d.h"
 #include "./include/parse_ply.h"
 
-// commented by tyamagis
+int	exit_me(void)
+{
+	printf("term3d >> something wrong. retry.\n");
+	exit(0);
+}
+
 void	init_info(t_term *info)
 {
 	info->height = 60;
 	info->width = 60;
 	info->screen_z = 0;
-	init_vector(&(info->eye_pos), 0, 0, -10);
+	init_vector(&(info->eye_pos), 0, 0, -50);
 	init_vector(&(info->sphere_pos), 0, 0, 0);
 	info->sphere_r = 10;
-	info->zoom= 8;
+	info->zoom = 8;
 	info->deg = 0;
 }
 
-int main(int argc, char **argv)
+void	set_char(int *xy, char *data, t_term *tm, t_ply *ply)
 {
-	t_term	term_info;
-	t_ply	*ply_info;
-	char	*filename;
-	char	*output_data;
-	char	*tmp;
-	size_t	datasize;
+	float	d;
 
-	if(argc != 2)
-		return 0;
-	filename = argv[argc - 1];
-	ply_info = parse_ply(filename);
-	init_info(&term_info);
-
-	int x = -1 * (term_info.width) / 2;
-	int y = 1 * (term_info.height) / 2;
-	datasize = (term_info.width + 1) * (term_info.height + 1) + 1;
-	output_data = (char *)malloc(datasize);
-	tmp = output_data;
-	while(1)
+	while (xy[1] > -1 * tm.width / 2)
 	{
-		output_data = tmp;
-		fprintf(stdout, "\033[2J\033[2H");
-		while(y > -1 * term_info.width / 2)
+		while (xy[0] < tm.height / 2)
 		{
-			while(x < term_info.height / 2)
+			d = is_colided(xy[0], xy[1], tm, ply);
+			if (d >= 0)
 			{
-				// （x, y）が円と衝突しているか判定
-				float D = is_colided(x, y, &term_info, ply_info);
-				if (D >= 0)
-					memset(output_data, '#', 1);
-				else
-					memset(output_data, ' ', 1);
-				output_data++;
-				memset(output_data, ' ', 1);
-				output_data++;
-				x++;
+				memset(data, '+', 1);
+				memset(data + 1, ' ', 1);
 			}
-			memset(output_data, '\n', 1);
-			output_data++;
-			x = -1 * (term_info.width) / 2;
-			y--;
+			else
+				memset(data, ' ', 2);
+			data += 2;
+			xy[0]++;
 		}
-		memset(output_data, '\0', 1);
-		printf("%s", tmp);
-		if (term_info.deg > 360)
-			term_info.deg -= 360;
-		term_info.deg += 10;
-		y = 1 * (term_info.height) / 2;
+		memset(data, '\n', 1);
+		data++;
+		xy[0] = -1 * (tm.width) / 2;
+		xy[1]--;
+	}
+	memset(data, '\0', 1);
+}
+
+int	main(int argc, char **argv)
+{
+	t_term	tm;
+	t_ply	*ply;
+	char	*data;
+	size_t	datasize;
+	int		xy[2];
+
+	if (argc != 2)
+		exit_me();
+	ply = parse_ply(argv[1]);
+	init_info(&tm);
+	xy[0] = -1 * (tm.width) / 2;
+	xy[1] = 1 * (tm.height) / 2;
+	datasize = (tm.width + 1) * (tm.height + 1) + 1;
+	data = (char *)malloc(datasize);
+	while (1)
+	{
+		fprintf(stdout, "\033[2J\033[2H");
+		set_char(xy, data, &tm, ply);
+		printf("%s", data);
+		if (tm.deg > 360)
+			tm.deg -= 360;
+		tm.deg += 10;
+		xy[1] = 1 * (tm.height) / 2;
 		usleep(50000);
 	}
 }
