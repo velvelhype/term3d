@@ -15,17 +15,7 @@ int	exit_me(void)
 
 void	init_info(t_term *info)
 {
-	struct winsize	w;
-	int				size;
-
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-	size = w.ws_col * 0.5;
-	if (size > w.ws_row)
-		size = w.ws_row;
-	info->height = size;
-	info->width = size;
-	info->lim_x = size * 0.5;
-	info->lim_y = size * -0.5;
+	info->height = 0;
 	info->screen_z = 0;
 	init_vector(&(info->eye_pos), 0, 0, -100);
 	init_vector(&(info->sphere_pos), 0, 0, 0);

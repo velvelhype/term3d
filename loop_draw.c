@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:03:14 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/19 17:56:39 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/19 18:06:03 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	calc_data(t_term *tm, t_ply *ply, char *data)
 	return (ret);
 }
 
-void	change_size(t_term *tm, char **data, int size)
+char	*change_size(t_term *tm, char **data, int size)
 {
 	size_t	data_size;
 
@@ -75,20 +75,16 @@ void	change_size(t_term *tm, char **data, int size)
 	*data = (char *)malloc(data_size);
 	if (*data == NULL)
 		exit_me();
-	return ;
+	return (*data);
 }
 
 void	loop_draw(t_term *tm, t_ply *ply)
 {
-	size_t			data_size;
 	char			*data;
-	struct winsize	w;
 	int				win_size;
+	struct winsize	w;
 
-	data_size = (tm->width * 2 + 1) * tm->height + 1;
-	data = (char *)malloc(data_size);
-	if (data == NULL)
-		exit_me();
+	data = malloc(1);
 	while (1)
 	{
 		ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
@@ -96,12 +92,11 @@ void	loop_draw(t_term *tm, t_ply *ply)
 		if (win_size > w.ws_row)
 			win_size = w.ws_row;
 		if (win_size != tm->height)
-			change_size(tm, &data, win_size);
+			data = change_size(tm, &data, win_size);
 		if (!calc_data(tm, ply, data))
 			exit_me();
 		fprintf(stderr, "\033[2J\033[2H");
 		fprintf(stderr, "%s", data);
-		fprintf(stderr, "col %d, row %d, size %d\n", w.ws_col, w.ws_row, win_size);
 		if (tm->deg > 360)
 			tm->deg -= 360;
 		tm->deg += 0.4;
