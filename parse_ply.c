@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:56:58 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/18 22:08:09 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/18 23:32:45 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	*poly_to_tri(t_ply *ply_info, FILE *f_stream, int *read, int vtx)
 
 	new_elm = ply_info->elem_faces + vtx - 3;
 	faces = recreate_faces(ply_info, ply_info->faces, read, new_elm);
-	if (!fscanf(f_stream, "%d %d %d", &faces[*read].v1, &faces[*read].v2, \
-			&faces[*read].v3))
+	if (fscanf(f_stream, "%d %d %d", &faces[*read].v1, &faces[*read].v2, \
+			&faces[*read].v3) != 3)
 		exit_me();
 	v1 = faces[*read].v1;
 	v3 = faces[*read].v3;
@@ -76,8 +76,8 @@ void	*set_faces(t_ply *ply_info, FILE *f_stream)
 			exit_me();
 		if (num_of_vtx == 3)
 		{
-			if (!fscanf(f_stream, "%d %d %d", &faces[i].v1, \
-					&faces[i].v2, &faces[i].v3))
+			if (fscanf(f_stream, "%d %d %d", &faces[i].v1, \
+					&faces[i].v2, &faces[i].v3) != 3)
 				exit_me();
 			i++;
 		}
@@ -102,7 +102,7 @@ void	*set_vertexes(t_ply *ply, FILE *f_stream)
 	i = 0;
 	while (i++ < ply->elem_vertexes)
 	{
-		if (!fscanf(f_stream, "%f %f %f", &vtx->x, &vtx->y, &vtx->z))
+		if (fscanf(f_stream, "%f %f %f", &vtx->x, &vtx->y, &vtx->z) != 3)
 			exit_me();
 		vtx++;
 	}
