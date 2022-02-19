@@ -18,7 +18,7 @@ void	set_char(float d, char *data)
 	if (d >= 0)
 	{
 		memset(data, '+', 1);
-		memset(data + 1, '., 1);
+		memset(data + 1, '.', 1);
 	}
 	else
 		memset(data, ' ', 2);
