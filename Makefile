@@ -22,7 +22,9 @@ ok_test: re
 	make -C test_dir
 	cd test_dir && ./success_test
 
-fail_test:
+fail_test: re
+	make -C test_dir
+	cd test_dir && ./ng_test
 
 clean:
 	rm -f $(OBJS)
