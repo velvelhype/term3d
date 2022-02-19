@@ -36,7 +36,7 @@ int	main()
 		}
 		else
 		{
-			sleep(3);
+			sleep(5);
 			kill(f, SIGTERM);
 		}
 		i++;
