@@ -18,7 +18,7 @@ void	set_char(float d, char *data)
 	if (d >= 0)
 	{
 		memset(data, '+', 1);
-		memset(data + 1, ' ', 1);
+		memset(data + 1, '.', 1);
 	}
 	else
 		memset(data, ' ', 2);
@@ -66,7 +66,7 @@ void	loop_draw(t_term *tm, t_ply *ply)
 		fprintf(stderr, "%s", data);
 		if (tm->deg > 360)
 			tm->deg -= 360;
-		tm->deg += 10;
+		tm->deg += 0.4;
 		usleep(50000);
 	}
 	return ;
