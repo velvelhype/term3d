@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:03:14 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/19 16:50:39 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/19 17:06:03 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int	set_char(float d, char *data)
 
 	if (d >= 0)
 	{
-		memset(data, '+', 1);
-		memset(data + 1, '.', 1);
+		memset(data, '0', 1);
+		memset(data + 1, ' ', 1);
 		ret = 1;
 	}
 	else
 	{
-		memset(data, ' ', 2);
+		memset(data, '.', 2);
 		ret = 0;
 	}
 	return (ret);
