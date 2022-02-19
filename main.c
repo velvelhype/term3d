@@ -15,8 +15,8 @@ int	exit_me(void)
 
 void	init_info(t_term *info)
 {
-	info->height = 100;
-	info->width = 100;
+	info->height = 40;
+	info->width = 40;
 	info->lim_x = info->height * 0.5;
 	info->lim_y = info->width * -0.5;
 	info->screen_z = 0;
