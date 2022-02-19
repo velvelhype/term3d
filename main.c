@@ -1,10 +1,10 @@
 #include "./include/term3d.h"
 #include "./include/parse_ply.h"
 
-void end(void)
+void	end(void)
 {
-        if (system("leaks -q term3d > /dev/null"))
-        system("leaks -q term3d");
+	if (system("leaks -q term3d > /dev/null"))
+		system("leaks -q term3d");
 }
 
 int	exit_me(void)

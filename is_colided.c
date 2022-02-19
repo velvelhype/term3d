@@ -19,7 +19,16 @@ float	is_ray_in_tri(t_tri tri, t_vector eye_dir, t_term *term_info)
 	float		u;
 	float		v;
 	float		t;
+	// float　ray_to_face_distance=0を作っって
+	// near_hit_face=0 どの面に当たったのかも覚えとくと
 
+	// 全部のフェイスにレイを当てようとする、
+	// 当たったらray_to_face_distanceより小さくなったら、distanceとneaf_hit_face更新
+	// distanceに数字が入ってたら
+
+	// near_hit_faceの法線ベクトルと、eye_dirの逆ベクトルのsinの値を計算する
+	// それを割合に丸める反射度を返すようにする
+	// 反射度の大きさに応じてヒットマークの記号の種類を変える
 	init_vars(eye_dir, &vars, &term_info->eye_pos, &tri);
 	if (-vars.kEpsilon < vars.det && vars.det < vars.kEpsilon)
 		return (-1);

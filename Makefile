@@ -19,6 +19,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 ok_test: re
+	make -C test_dir
 	cd test_dir && ./success_test
 
 fail_test:
