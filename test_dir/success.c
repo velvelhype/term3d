@@ -19,11 +19,12 @@ int	main()
 	"/Users/kazukimori/Codes/term3d/my_term3d/obj/torus_and_cube.ply",
 	NULL};
 
+	//
 	char **tests[5];
 	tests[0] = nop;
 	tests[1] = cube;
 	tests[2] = torus_and_cube;
-	tests[3] = NULL;
+	tests[4] = NULL;
 
 	int i = 0;
 	while(tests[i])

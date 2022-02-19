@@ -2,7 +2,7 @@ NAME = term3d
 
 CC = gcc
 
-# CFLAGS = -Werror -Wall -Wextra
+CFLAGS = -Werror -Wall -Wextra -g -fsanitize=address
 
 SRCS = main.c \
 is_colided.c \
@@ -18,8 +18,10 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-ok_test:
+ok_test: re
 	cd test_dir && ./success_test
+
+fail_test:
 
 clean:
 	rm -f $(OBJS)
