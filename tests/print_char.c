@@ -14,7 +14,7 @@ int main(void)
 		for (int i = 0; i < h; i++)
 		{
 			for (int j = 0; j < w; j++)
-				printf("%c", c);
+				printf("%c ", c);
 			printf("\n");
 		}
 		printf("\n\n");
