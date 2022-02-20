@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:03:14 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/19 18:06:03 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/20 22:44:43 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,32 @@
 int	set_char(float d, char *data)
 {
 	int	ret;
+	int	round;
+	char	*set1 = " -~=cxxxxxxx";
+	char	*set2 = "FX8NNNNNN";
 
 	if (d >= 0)
-	{	
-		if (d > 0.0f && d <= 0.2f)
-			memset(data, ',', 1);
-		if (d > 0.2f && d <= 0.4f)
-			memset(data, '/', 1);
-		if (d > 0.4f && d <= 0.6f)
-			memset(data, '3', 1);
-		if (d > 0.6f && d <= 0.8f)
-			memset(data, '6', 1);
-		if (d > 0.8f && d <= 1.0f)
-			memset(data, '0', 1);
-		memset(data + 1, ' ', 1);
+	{
+		round = (int)(d * 24);
+		if (round >= 24)
+			printf("round : %d, ", round);
+		if (round < 9)
+		{
+			memset(data, set1[(int)(round * 0.5)], 1);
+			memset(data + 1, ' ', 1);
+		}
+		else if (round > 9 && round < 18)
+			memset(data, set1[round - 10], 2);
+		else
+		{
+			round %= 4;
+			memset(data, set2[round], 2);
+		}
 		ret = 1;
 	}
 	else
 	{
-		memset(data, '.', 2);
+		memset(data, ' ', 2);
 		ret = 0;
 	}
 	return (ret);
@@ -83,7 +90,7 @@ char	*change_size(t_term *tm, char **data, int size)
 	}
 	*data = (char *)malloc(data_size);
 	if (*data == NULL)
-		exit_me();
+		exit_me(ERR_MALLOC);
 	return (*data);
 }
 
@@ -103,7 +110,7 @@ void	loop_draw(t_term *tm, t_ply *ply)
 		if (win_size != tm->height)
 			data = change_size(tm, &data, win_size);
 		if (!calc_data(tm, ply, data))
-			exit_me();
+			exit_me(NO_DISPLAY);
 		fprintf(stderr, "\033[2J\033[2H");
 		fprintf(stderr, "%s", data);
 		if (tm->deg > 360)
