@@ -8,6 +8,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
+# include <sys/ioctl.h>
 # include "parse_ply.h"
 
 typedef struct s_moller
