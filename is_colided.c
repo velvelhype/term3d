@@ -13,35 +13,55 @@ void	init_vars(t_vector eye_dir, t_moller *vars, t_vector *eye_pos, t_tri *t)
 	cross(&vars->beta, &vars->r, &vars->e1);
 }
 
-float	is_ray_in_tri(t_tri tri, t_vector eye_dir, t_term *term_info)
+t_vector	calc_normal_vector(t_tri tri)
+{
+	t_vector ab = sub(&tri.v1, &tri.v0);
+	t_vector ac = sub(&tri.v2, &tri.v0);
+	t_vector normal_vector;
+
+	cross(&normal_vector, &ab, &ac);
+	normalize(&normal_vector);
+	return	(normal_vector);
+}
+
+void	is_ray_in_tri(t_tri tri, t_vector eye_dir, t_term *term_info, t_albedo *alb_info)
 {
 	t_moller	vars;
-	float		u;
+	float		u; 
 	float		v;
 	float		t;
-	// float　ray_to_face_distance=0を作っって
-	// near_hit_face=0 どの面に当たったのかも覚えとくと
 
-	// 全部のフェイスにレイを当てようとする、
-	// 当たったらray_to_face_distanceより小さくなったら、distanceとneaf_hit_face更新
-	// distanceに数字が入ってたら
-
-	// near_hit_faceの法線ベクトルと、eye_dirの逆ベクトルのsinの値を計算する
-	// それを割合に丸める反射度を返すようにする
-	// 反射度の大きさに応じてヒットマークの記号の種類を変える
 	init_vars(eye_dir, &vars, &term_info->eye_pos, &tri);
 	if (-vars.kEpsilon < vars.det && vars.det < vars.kEpsilon)
-		return (-1);
+		return ;
 	u = dot(&vars.alpha, &vars.r) * vars.invDet;
 	if (u < 0.0f || u > 1.0f)
-		return (-1);
+		return ;
 	v = dot(&eye_dir, &vars.beta) * vars.invDet;
 	if (v < 0.0f || u + v > 1.0f)
-		return (-1);
+		return ;
 	t = dot(&vars.e2, &vars.beta) * vars.invDet;
 	if (t < 0.0f)
-		return (-1);
-	return (0);
+		return ;
+
+//////////////////////////////////////////////////////////
+	t_vector	distance =  mult(&eye_dir, t);
+	distance = add(&term_info->eye_pos, &distance);
+	if (alb_info->min_dis.x == -1)
+	{
+		alb_info->face_normal_vec = calc_normal_vector(tri);
+		alb_info->min_dis = distance;
+		return ;
+	}
+	if (len_vector(&distance, &term_info->eye_pos)
+	< len_vector(&alb_info->min_dis, &term_info->eye_pos))
+	{
+		alb_info->face_normal_vec = calc_normal_vector(tri);
+		alb_info->min_dis = distance;
+		return ;
+	}
+	else
+		return ;
 }
 
 void	vertex_conversion(t_vector *ver, t_term *i)
@@ -62,6 +82,9 @@ float	moller97(t_vector eye_dir, t_term *term_info, t_ply *ply_info)
 	int		i;
 
 	i = 0;
+	t_albedo	alb_info;
+	init_vector(&alb_info.min_dis, -1, -1, -1);
+
 	while (i < ply_info->elem_faces)
 	{
 		tri.v0 = ply_info->vertexes[ply_info->faces[i].v1];
@@ -70,9 +93,16 @@ float	moller97(t_vector eye_dir, t_term *term_info, t_ply *ply_info)
 		vertex_conversion(&tri.v1, term_info);
 		tri.v2 = ply_info->vertexes[ply_info->faces[i].v3];
 		vertex_conversion(&tri.v2, term_info);
-		if (is_ray_in_tri(tri, eye_dir, term_info) == 0)
-			return (1);
+		is_ray_in_tri(tri, eye_dir, term_info, &alb_info);
 		i++;
+	}
+	if (alb_info.min_dis.x != -1)
+	{
+		mult(&eye_dir, -1);
+		normalize(&eye_dir);
+		float conc = dot(&alb_info.face_normal_vec, &eye_dir);
+		conc *= -1;
+		return (conc);
 	}
 	return (-1);
 }

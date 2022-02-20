@@ -39,5 +39,5 @@ void	cross(t_vector *o, const t_vector *a, const t_vector *b)
 {
 	o->x = a->y * b->z - a->z * b->y;
 	o->y = a->z * b->x - a->x * b->z;
-	 o->z = a->x * b->y - a->y * b->x;
+	o->z = a->x * b->y - a->y * b->x;
 }

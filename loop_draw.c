@@ -18,8 +18,17 @@ int	set_char(float d, char *data)
 	int	ret;
 
 	if (d >= 0)
-	{
-		memset(data, '0', 1);
+	{	
+		if (d > 0.0f && d <= 0.2f)
+			memset(data, ',', 1);
+		if (d > 0.2f && d <= 0.4f)
+			memset(data, '/', 1);
+		if (d > 0.4f && d <= 0.6f)
+			memset(data, '3', 1);
+		if (d > 0.6f && d <= 0.8f)
+			memset(data, '6', 1);
+		if (d > 0.8f && d <= 1.0f)
+			memset(data, '0', 1);
 		memset(data + 1, ' ', 1);
 		ret = 1;
 	}
