@@ -116,7 +116,7 @@ void	loop_draw(t_term *tm, t_ply *ply)
 		if (tm->deg > 360)
 			tm->deg -= 360;
 		tm->deg += 0.4;
-		usleep(100000);
+		usleep(10000);
 	}
 	return ;
 }
