@@ -1,6 +1,12 @@
 #ifndef TERM3D_H
 # define TERM3D_H
+
 # define M_PI   3.14159265358979323846264338327950288
+# define ERR_ARG "term3d >> invalid argument\n"
+# define ERR_MALLOC "term3d >> malloc failed\n"
+# define NO_DISPLAY "term3d >> nothing to display. quit.\n"
+# define ERR_FMT "term3d >> file format err. quit.\n"
+# define ERR_PARSE "term3d >> something wrong during file parse\n"
 
 # include "vector.h"
 # include <stdio.h>
@@ -46,6 +52,6 @@ typedef struct s_term
 
 float	is_colided(int x, int y, t_term *info, t_ply *ply_info);
 void	loop_draw(t_term *tm, t_ply *ply);
-int		exit_me(void);
+int		exit_me(char *s);
 
 #endif

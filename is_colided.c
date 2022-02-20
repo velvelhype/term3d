@@ -67,12 +67,12 @@ void	is_ray_in_tri(t_tri tri, t_vector eye_dir, t_term *term_info, t_albedo *alb
 void	vertex_conversion(t_vector *ver, t_term *i)
 {
 	float	new_x;
-	float	new_y;
+	float	new_z;
 
-	new_x = ver->x * cos(i->deg) - ver->y * sin(i->deg);
-	new_y = ver->x * sin(i->deg) + ver->y * cos(i->deg);
+	new_x = ver->x * cos(i->deg) - ver->z * sin(i->deg);
+	new_z = ver->x * sin(i->deg) + ver->z * cos(i->deg);
 	ver->x = new_x;
-	ver->y = new_y;
+	ver->z = new_z;
 	*ver = mult(ver, i->zoom);
 }
 

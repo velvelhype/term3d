@@ -7,9 +7,9 @@ void	end(void)
 		system("leaks -q term3d");
 }
 
-int	exit_me(void)
+int	exit_me(char *s)
 {
-	printf("term3d >> something wrong. retry.\n");
+	printf("%s", s);
 	exit(0);
 }
 
@@ -30,10 +30,10 @@ int	main(int argc, char **argv)
 	t_ply	*ply;
 
 	if (argc != 2)
-		exit_me();
+		exit_me(ERR_ARG);
 	ply = parse_ply(argv[1]);
 	if (ply == NULL)
-		exit_me();
+		exit_me(ERR_PARSE);
 	init_info(&tm);
 	loop_draw(&tm, ply);
 	return (0);
