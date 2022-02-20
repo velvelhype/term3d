@@ -23,3 +23,14 @@
 
 # good ply files, but TOO MANY
 ./term3d ./obj/corn.ply ./obj/cube.ply
+./term3d obj/invalid_files/00_dup_face.ply
+./term3d obj/invalid_files/01_dup_vtx.ply
+./term3d obj/invalid_files/02_invalid_face.ply
+./term3d obj/invalid_files/03_invalid_vertex.ply
+./term3d obj/invalid_files/04_few_vtx_in_face.ply
+./term3d obj/invalid_files/05_large_coordinates.ply
+./term3d obj/invalid_files/06_many_vtx_in_face.ply
+./term3d obj/invalid_files/07_no_face.ply
+./term3d obj/invalid_files/08_no_ply.ply
+./term3d obj/invalid_files/09_no_vertex.ply
+./term3d obj/invalid_files/10_same_vtx_in_face.ply

@@ -1,10 +1,10 @@
 #include "./include/term3d.h"
 #include "./include/parse_ply.h"
 
-void end(void)
+void	end(void)
 {
-        if (system("leaks -q term3d > /dev/null"))
-        system("leaks -q term3d");
+	if (system("leaks -q term3d > /dev/null"))
+		system("leaks -q term3d");
 }
 
 int	exit_me(void)
@@ -15,10 +15,7 @@ int	exit_me(void)
 
 void	init_info(t_term *info)
 {
-	info->height = 40;
-	info->width = 40;
-	info->lim_x = info->height * 0.5;
-	info->lim_y = info->width * -0.5;
+	info->height = 0;
 	info->screen_z = 0;
 	init_vector(&(info->eye_pos), 0, 0, -100);
 	init_vector(&(info->sphere_pos), 0, 0, 0);
