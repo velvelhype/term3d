@@ -48,6 +48,9 @@ typedef struct s_term
 	t_vector	eye_pos;
 	t_vector	sphere_pos;
 	int			sphere_r;
+	char		*charset;
+	size_t		charset_size;
+	int			threshold;
 }	t_term;
 
 float	is_colided(int x, int y, t_term *info, t_ply *ply_info);
