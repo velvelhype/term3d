@@ -6,39 +6,27 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:03:14 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/20 22:44:43 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/21 01:49:25 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/term3d.h"
 #include "./include/parse_ply.h"
 
-int	set_char(float d, char *data)
+int	set_char(t_term *tm, float d, char *data)
 {
-	int	ret;
-	int	round;
-	char	*set1 = " -~=cxxxxxxx";
-	char	*set2 = "FX8NNNNNN";
+	int		ret;
+	int		round;
 
-	if (d >= 0)
+	ret = 1;
+	round = (int)(d * tm->charset_size);
+	if (round > 0 && round < tm->threshold)
 	{
-		round = (int)(d * 24);
-		if (round >= 24)
-			printf("round : %d, ", round);
-		if (round < 9)
-		{
-			memset(data, set1[(int)(round * 0.5)], 1);
-			memset(data + 1, ' ', 1);
-		}
-		else if (round > 9 && round < 18)
-			memset(data, set1[round - 10], 2);
-		else
-		{
-			round %= 4;
-			memset(data, set2[round], 2);
-		}
-		ret = 1;
+		memset(data, tm->charset[round], 1);
+		memset(data + 1, ' ', 1);
 	}
+	else if (round >= tm->threshold)
+		memset(data, tm->charset[round - tm->threshold + 1], 2);
 	else
 	{
 		memset(data, ' ', 2);
@@ -62,7 +50,7 @@ int	calc_data(t_term *tm, t_ply *ply, char *data)
 		while (x < tm->lim_x)
 		{
 			d = is_colided(x, y, tm, ply);
-			ret += set_char(d, data);
+			ret += set_char(tm, d, data);
 			data += 2;
 			x++;
 		}
@@ -104,19 +92,22 @@ void	loop_draw(t_term *tm, t_ply *ply)
 	while (1)
 	{
 		ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-		win_size = w.ws_col * 0.5;
-		if (win_size > w.ws_row)
-			win_size = w.ws_row;
-		if (win_size != tm->height)
-			data = change_size(tm, &data, win_size);
+		if (win_size != w.ws_col * 0.5 && win_size != w.ws_row)
+		{
+			win_size = w.ws_col * 0.5;
+			if (win_size > w.ws_row)
+				win_size = w.ws_row;
+			if (win_size != tm->height)
+				data = change_size(tm, &data, win_size);
+		}
 		if (!calc_data(tm, ply, data))
 			exit_me(NO_DISPLAY);
 		fprintf(stderr, "\033[2J\033[2H");
 		fprintf(stderr, "%s", data);
 		if (tm->deg > 360)
 			tm->deg -= 360;
-		tm->deg += 0.4;
-		usleep(100000);
+		tm->deg += 0.05;
+		usleep(16500);
 	}
 	return ;
 }
