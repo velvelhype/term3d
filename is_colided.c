@@ -76,10 +76,6 @@ void	vertex_conversion(t_vector *ver, t_term *i)
 	*ver = mult(ver, i->zoom);
 }
 
-#define MIN(a,b) (a < b ? a : b)
-#define MAX(a,b) (a > b ? a : b)
-#define CLAMP(v,minv,maxv) MIN(MAX(v,minv),maxv)
-
 float	moller97(t_vector eye_dir, t_term *term_info, t_ply *ply_info)
 {
 	t_tri	tri;
