@@ -25,6 +25,31 @@ void	init_info(t_term *info)
 	info->charset = NULL;
 }
 
+void	set_charset(int ac, char *charset, t_term *tm)
+{
+	size_t	charset_size;
+
+	if (ac == 3)
+	{
+		charset_size = strlen(charset);
+		if (charset_size > 2)
+		{
+			tm->charset = charset;
+			tm->charset_size = charset_size;
+		}
+		else
+			exit_me("term3d >> too short charset");
+	}
+	else
+	{
+		tm->charset = "-~=cxFX8NNNNN";
+		tm->charset_size = 9;
+	}
+	tm->threshold = (int)(tm->charset_size * 0.4);
+	return ;
+}
+
+
 int	main(int argc, char **argv)
 {
 	t_term	tm;
@@ -36,17 +61,7 @@ int	main(int argc, char **argv)
 	if (ply == NULL)
 		exit_me(ERR_PARSE);
 	init_info(&tm);
-	if (argc == 3)
-	{
-		tm.charset = argv[2];
-		tm.charset_size = strlen(argv[2]);
-	}
-	else
-	{
-		tm.charset = " -~=cxFX8NNNNN";
-		tm.charset_size = 10;
-	}
-	tm.threshold = (int)(tm.charset_size * 0.4);
+	set_charset(argc, argv[2], &tm);
 	loop_draw(&tm, ply);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:03:14 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/21 00:01:20 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/21 01:49:25 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	set_char(t_term *tm, float d, char *data)
 
 	ret = 1;
 	round = (int)(d * tm->charset_size);
-	if (round >= 0 && round < tm->threshold)
+	if (round > 0 && round < tm->threshold)
 	{
 		memset(data, tm->charset[round], 1);
 		memset(data + 1, ' ', 1);
@@ -92,19 +92,22 @@ void	loop_draw(t_term *tm, t_ply *ply)
 	while (1)
 	{
 		ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-		win_size = w.ws_col * 0.5;
-		if (win_size > w.ws_row)
-			win_size = w.ws_row;
-		if (win_size != tm->height)
-			data = change_size(tm, &data, win_size);
+		if (win_size != w.ws_col * 0.5 && win_size != w.ws_row)
+		{
+			win_size = w.ws_col * 0.5;
+			if (win_size > w.ws_row)
+				win_size = w.ws_row;
+			if (win_size != tm->height)
+				data = change_size(tm, &data, win_size);
+		}
 		if (!calc_data(tm, ply, data))
 			exit_me(NO_DISPLAY);
 		fprintf(stderr, "\033[2J\033[2H");
 		fprintf(stderr, "%s", data);
 		if (tm->deg > 360)
 			tm->deg -= 360;
-		tm->deg += 0.07;
-		usleep(50000);
+		tm->deg += 0.05;
+		usleep(16500);
 	}
 	return ;
 }
