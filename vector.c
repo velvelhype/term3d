@@ -3,6 +3,16 @@
 #include <math.h>
 #include <string.h>
 
+float	len_vector(t_vector	*v1, t_vector *v2)
+{
+	float	len;
+
+	len = pow(v1->x - v2->x, 2);
+	len += pow(v1->y - v2->y, 2);
+	len += pow(v1->z - v2->z, 2);
+	return (sqrt(len));
+}
+
 void	init_vector(t_vector *vec, float arg_x, float arg_y, float arg_z)
 {
 	vec->x = arg_x;
@@ -12,7 +22,7 @@ void	init_vector(t_vector *vec, float arg_x, float arg_y, float arg_z)
 
 float	squared_norm(const t_vector*v)
 {
-	return (sqrt(v->x) + sqrt(v->y) + sqrt(v->z));
+	return (pow(v->x, 2) + pow(v->y, 2) + pow(v->z, 2));
 }
 
 float	norm(const t_vector *v)
@@ -23,8 +33,8 @@ float	norm(const t_vector *v)
 float	normalize(t_vector *v)
 {
 	float	vnorm;
-
 	vnorm = norm(v);
+	// printf("vn:%f x:%f y:%f z:%f\n", vnorm, v->x, v->y, v->z);
 	v->x /= vnorm;
 	v->y /= vnorm;
 	v->z /= vnorm;

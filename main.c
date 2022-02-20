@@ -3,8 +3,8 @@
 
 void end(void)
 {
-        if (system("leaks -q term3d > /dev/null"))
-        system("leaks -q term3d");
+    if (system("leaks -q term3d > /dev/null"))
+    system("leaks -q term3d");
 }
 
 int	exit_me(void)
@@ -15,8 +15,8 @@ int	exit_me(void)
 
 void	init_info(t_term *info)
 {
-	info->height = 40;
-	info->width = 40;
+	info->height = 60;
+	info->width = 60;
 	info->lim_x = info->height * 0.5;
 	info->lim_y = info->width * -0.5;
 	info->screen_z = 0;
