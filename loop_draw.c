@@ -88,6 +88,7 @@ void	loop_draw(t_term *tm, t_ply *ply)
 	int				win_size;
 	struct winsize	w;
 
+	win_size = -1;
 	data = malloc(1);
 	while (1)
 	{

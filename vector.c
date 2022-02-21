@@ -33,8 +33,8 @@ float	norm(const t_vector *v)
 float	normalize(t_vector *v)
 {
 	float	vnorm;
+
 	vnorm = norm(v);
-	// printf("vn:%f x:%f y:%f z:%f\n", vnorm, v->x, v->y, v->z);
 	v->x /= vnorm;
 	v->y /= vnorm;
 	v->z /= vnorm;

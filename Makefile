@@ -10,6 +10,7 @@ vector.c \
 parse_ply.c \
 vector_operations.c \
 loop_draw.c \
+shade.c \
 
 OBJS = $(SRCS:.c=.o)
 

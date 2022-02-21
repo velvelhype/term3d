@@ -53,8 +53,11 @@ typedef struct s_term
 	int			threshold;
 }	t_term;
 
-float	is_colided(int x, int y, t_term *info, t_ply *ply_info);
-void	loop_draw(t_term *tm, t_ply *ply);
-int		exit_me(char *s);
+float		is_colided(int x, int y, t_term *info, t_ply *ply_info);
+t_vector	calc_normal_vector(t_tri tri);
+float		calc_albedo(t_vector eye_dir, t_albedo alb_info);
+void		is_min_dis(t_tri t, t_vector e, t_term *term, t_albedo *alb);
+void		loop_draw(t_term *tm, t_ply *ply);
+int			exit_me(char *s);
 
 #endif

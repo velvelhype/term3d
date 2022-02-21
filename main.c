@@ -16,7 +16,7 @@ int	exit_me(char *s)
 void	init_info(t_term *info)
 {
 	info->height = 0;
-	info->screen_z = 0;
+	info->screen_z = 10;
 	init_vector(&(info->eye_pos), 0, 0, -100);
 	init_vector(&(info->sphere_pos), 0, 0, 0);
 	info->sphere_r = 10;
@@ -48,7 +48,6 @@ void	set_charset(int ac, char *charset, t_term *tm)
 	tm->threshold = (int)(tm->charset_size * 0.4);
 	return ;
 }
-
 
 int	main(int argc, char **argv)
 {
