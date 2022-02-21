@@ -16,8 +16,8 @@ int	exit_me(char *s)
 void	init_info(t_term *info)
 {
 	info->height = 0;
-	info->screen_z = -200;
-	init_vector(&(info->eye_pos), 0, 0, -400);
+	info->screen_z = 0;
+	init_vector(&(info->eye_pos), 0, 0, -100);
 	init_vector(&(info->sphere_pos), 0, 0, 0);
 	info->sphere_r = 10;
 	info->zoom = 8;
