@@ -19,7 +19,7 @@
 
 typedef struct s_moller
 {
-	float		kEpsilon;
+	float		epsilon;
 	t_vector	e1;
 	t_vector	e2;
 	t_vector	alpha;
@@ -45,6 +45,8 @@ typedef struct s_term
 	int			screen_z;
 	int			zoom;
 	float		deg;
+	double		cos_deg;
+	double		sin_deg;
 	t_vector	eye_pos;
 	t_vector	sphere_pos;
 	int			sphere_r;

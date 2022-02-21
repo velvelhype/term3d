@@ -1,7 +1,7 @@
 #ifndef VECTOR_H
 # define VECTOR_H
 
-# include "macro.h"
+# include "simple_operation.h"
 
 typedef struct s_vector
 {

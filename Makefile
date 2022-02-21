@@ -1,8 +1,8 @@
 NAME = term3d
 
-CC = gcc
+CC = gcc -O3
 
-CFLAGS = -Werror -Wall -Wextra -g -fsanitize=address
+# CFLAGS = -Werror -Wall -Wextra -g -fsanitize=address
 
 SRCS = main.c \
 is_colided.c \
