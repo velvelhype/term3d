@@ -46,8 +46,8 @@ typedef struct s_term
 	int			screen_z;
 	int			zoom;
 	float		deg;
-	double		cos_deg;
-	double		sin_deg;
+	double		cos;
+	double		sin;
 	t_vector	eye_pos;
 	t_vector	sphere_pos;
 	int			sphere_r;
