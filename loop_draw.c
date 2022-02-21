@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:03:14 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/21 22:16:55 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/22 00:15:19 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ void	loop_draw(t_term *tm, t_ply *ply)
 	int				win_size;
 	struct winsize	w;
 
-	win_size = -1;
 	data = malloc(1);
 	while (1)
 	{

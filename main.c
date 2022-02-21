@@ -19,7 +19,6 @@ void	init_info(t_term *info)
 	info->screen_z = 0;
 	init_vector(&(info->eye_pos), 0, 0, -100);
 	init_vector(&(info->sphere_pos), 0, 0, 0);
-	info->sphere_r = 10;
 	info->zoom = 8;
 	info->deg = 0.0f;
 	info->sin = sin(ROTATION);
