@@ -13,25 +13,14 @@ void	init_vars(t_vector eye_dir, t_moller *vars, t_vector *eye_pos, t_tri *t)
 	cross(&vars->beta, &vars->r, &vars->e1);
 }
 
-t_vector	calc_normal_vector(t_tri tri)
-{
-	t_vector ab = sub(&tri.v1, &tri.v0);
-	t_vector ac = sub(&tri.v2, &tri.v0);
-	t_vector normal_vector;
-
-	cross(&normal_vector, &ab, &ac);
-	normalize(&normal_vector);
-	return	(normal_vector);
-}
-
-void	is_ray_in_tri(t_tri tri, t_vector eye_dir, t_term *term_info, t_albedo *alb_info)
+void	is_ray_in_tri(t_tri tri, t_vector eye_dir, t_term *term, t_albedo *alb)
 {
 	t_moller	vars;
-	float		u; 
+	float		u;
 	float		v;
 	float		t;
 
-	init_vars(eye_dir, &vars, &term_info->eye_pos, &tri);
+	init_vars(eye_dir, &vars, &term->eye_pos, &tri);
 	if (-vars.kEpsilon < vars.det && vars.det < vars.kEpsilon)
 		return ;
 	u = dot(&vars.alpha, &vars.r) * vars.invDet;
@@ -43,25 +32,7 @@ void	is_ray_in_tri(t_tri tri, t_vector eye_dir, t_term *term_info, t_albedo *alb
 	t = dot(&vars.e2, &vars.beta) * vars.invDet;
 	if (t < 0.0f)
 		return ;
-
-//////////////////////////////////////////////////////////
-	t_vector	distance =  mult(&eye_dir, t);
-	distance = add(&term_info->eye_pos, &distance);
-	if (alb_info->min_dis.x == -1)
-	{
-		alb_info->face_normal_vec = calc_normal_vector(tri);
-		alb_info->min_dis = distance;
-		return ;
-	}
-	if (len_vector(&distance, &term_info->eye_pos)
-	< len_vector(&alb_info->min_dis, &term_info->eye_pos))
-	{
-		alb_info->face_normal_vec = calc_normal_vector(tri);
-		alb_info->min_dis = distance;
-		return ;
-	}
-	else
-		return ;
+	is_min_dis(tri, mult(&eye_dir, t), term, alb);
 }
 
 void	vertex_conversion(t_vector *ver, t_term *i)
@@ -78,13 +49,12 @@ void	vertex_conversion(t_vector *ver, t_term *i)
 
 float	moller97(t_vector eye_dir, t_term *term_info, t_ply *ply_info)
 {
-	t_tri	tri;
-	int		i;
+	t_tri		tri;
+	int			i;
+	t_albedo	alb_info;
 
 	i = 0;
-	t_albedo	alb_info;
 	init_vector(&alb_info.min_dis, -1, -1, -1);
-
 	while (i < ply_info->elem_faces)
 	{
 		tri.v0 = ply_info->vertexes[ply_info->faces[i].v1];
@@ -97,13 +67,7 @@ float	moller97(t_vector eye_dir, t_term *term_info, t_ply *ply_info)
 		i++;
 	}
 	if (alb_info.min_dis.x != -1)
-	{
-		mult(&eye_dir, -1);
-		normalize(&eye_dir);
-		float conc = dot(&alb_info.face_normal_vec, &eye_dir);
-		conc *= -1;
-		return (conc);
-	}
+		return (calc_albedo(eye_dir, alb_info));
 	return (-1);
 }
 

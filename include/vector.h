@@ -12,8 +12,8 @@ typedef struct s_vector
 
 typedef struct s_albedo
 {
-	t_vector min_dis;
-	t_vector face_normal_vec;
+	t_vector	min_dis;
+	t_vector	face_normal_vec;
 }	t_albedo;
 
 float		len_vector(t_vector	*v1, t_vector *v2);
