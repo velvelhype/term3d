@@ -22,6 +22,8 @@ void	init_info(t_term *info)
 	info->sphere_r = 10;
 	info->zoom = 8;
 	info->deg = 0.0f;
+	info->sin_deg = sin(ROTATION);
+	info->cos_deg = cos(ROTATION);
 	info->charset = NULL;
 }
 

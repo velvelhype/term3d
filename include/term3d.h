@@ -7,6 +7,7 @@
 # define NO_DISPLAY "term3d >> nothing to display. quit.\n"
 # define ERR_FMT "term3d >> file format err. quit.\n"
 # define ERR_PARSE "term3d >> something wrong during file parse\n"
+# define ROTATION 0.05f
 
 # include "vector.h"
 # include <stdio.h>

@@ -40,19 +40,7 @@ void	is_ray_in_tri(t_tri tri, t_vector eye_dir, t_term *term, t_albedo *alb)
 	is_min_dis(tri, mult(&eye_dir, t), term, alb);
 }
 
-void	vertex_conversion(t_vector *ver, t_term *i)
-{
-	float	new_x;
-	float	new_z;
-
-	new_x = ver->x * i->cos_deg - ver->z * i->sin_deg;
-	new_z = ver->x * i->sin_deg + ver->z * i->cos_deg;
-	ver->x = new_x;
-	ver->z = new_z;
-	*ver = mult(ver, i->zoom);
-}
-
-float	moller97(t_vector eye_dir, t_term *term_info, t_ply *ply_info)
+float	moller97(t_vector eye_dir, t_term *tm, t_ply *p)
 {
 	t_tri		tri;
 	int			i;
@@ -60,15 +48,12 @@ float	moller97(t_vector eye_dir, t_term *term_info, t_ply *ply_info)
 
 	i = 0;
 	init_vector(&alb_info.min_dis, -1, -1, -1);
-	while (i < ply_info->elem_faces)
+	while (i < p->elem_faces)
 	{
-		tri.v0 = ply_info->vertexes[ply_info->faces[i].v1];
-		vertex_conversion(&tri.v0, term_info);
-		tri.v1 = ply_info->vertexes[ply_info->faces[i].v2];
-		vertex_conversion(&tri.v1, term_info);
-		tri.v2 = ply_info->vertexes[ply_info->faces[i].v3];
-		vertex_conversion(&tri.v2, term_info);
-		is_ray_in_tri(tri, eye_dir, term_info, &alb_info);
+		tri.v0 = mult(&p->vertexes[p->faces[i].v1], tm->zoom);
+		tri.v1 = mult(&p->vertexes[p->faces[i].v2], tm->zoom);
+		tri.v2 = mult(&p->vertexes[p->faces[i].v3], tm->zoom);
+		is_ray_in_tri(tri, eye_dir, tm, &alb_info);
 		i++;
 	}
 	if (alb_info.min_dis.x != -1)
@@ -80,12 +65,8 @@ float	is_colided(int x, int y, t_term *term_info, t_ply *ply_info)
 {
 	t_vector	screen_pos;
 	t_vector	eye_dir;
-	t_vector	obj_to_eye;
 
 	init_vector(&screen_pos, x, y, term_info->screen_z);
 	eye_dir = sub(&screen_pos, &(term_info->eye_pos));
-	obj_to_eye = sub(&(term_info->eye_pos), &(term_info->sphere_pos));
-	term_info->cos_deg = cos(term_info->deg);
-	term_info->sin_deg = sin(term_info->deg);
 	return (moller97(eye_dir, term_info, ply_info));
 }
