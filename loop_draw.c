@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:03:14 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/21 21:53:58 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/21 22:16:55 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	rotate_vtx(t_term *tm, t_ply *p)
 	}
 	return ;
 }
-
 
 int	calc_data(t_term *tm, t_ply *ply, char *data)
 {
