@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:03:14 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/21 01:49:25 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/21 09:04:16 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,11 @@ void	loop_draw(t_term *tm, t_ply *ply)
 	while (1)
 	{
 		ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-		if (win_size != w.ws_col * 0.5 && win_size != w.ws_row)
-		{
-			win_size = w.ws_col * 0.5;
-			if (win_size > w.ws_row)
-				win_size = w.ws_row;
-			if (win_size != tm->height)
-				data = change_size(tm, &data, win_size);
-		}
+		win_size = w.ws_col * 0.5;
+		if (win_size > w.ws_row)
+			win_size = w.ws_row;
+		if (win_size != tm->height)
+			data = change_size(tm, &data, win_size);
 		if (!calc_data(tm, ply, data))
 			exit_me(NO_DISPLAY);
 		fprintf(stderr, "\033[2J\033[2H");
