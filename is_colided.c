@@ -3,11 +3,13 @@
 
 void	init_vars(t_vector eye_dir, t_moller *vars, t_vector *eye_pos, t_tri *t)
 {
-	vars->kEpsilon = 0.000000001;
+	vars->epsilon = 0.000000001;
 	vars->e1 = sub(&t->v1, &t->v0);
 	vars->e2 = sub(&t->v2, &t->v0);
 	cross(&vars->alpha, &eye_dir, &vars->e2);
 	vars->det = dot(&vars->e1, &vars->alpha);
+	if (-vars->epsilon < vars->det && vars->det < vars->epsilon)
+		return ;
 	vars->invDet = 1.0f / vars->det;
 	vars->r = sub(eye_pos, &t->v0);
 	cross(&vars->beta, &vars->r, &vars->e1);
@@ -21,8 +23,6 @@ void	is_ray_in_tri(t_tri tri, t_vector eye_dir, t_term *term, t_albedo *alb)
 	float		t;
 
 	init_vars(eye_dir, &vars, &term->eye_pos, &tri);
-	if (-vars.kEpsilon < vars.det && vars.det < vars.kEpsilon)
-		return ;
 	u = dot(&vars.alpha, &vars.r) * vars.invDet;
 	if (u < 0.0f || u > 1.0f)
 		return ;
@@ -40,8 +40,8 @@ void	vertex_conversion(t_vector *ver, t_term *i)
 	float	new_x;
 	float	new_z;
 
-	new_x = ver->x * cos(i->deg) - ver->z * sin(i->deg);
-	new_z = ver->x * sin(i->deg) + ver->z * cos(i->deg);
+	new_x = ver->x * i->cos_deg - ver->z * i->sin_deg;
+	new_z = ver->x * i->sin_deg + ver->z * i->cos_deg;
 	ver->x = new_x;
 	ver->z = new_z;
 	*ver = mult(ver, i->zoom);
@@ -80,5 +80,7 @@ float	is_colided(int x, int y, t_term *term_info, t_ply *ply_info)
 	init_vector(&screen_pos, x, y, term_info->screen_z);
 	eye_dir = sub(&screen_pos, &(term_info->eye_pos));
 	obj_to_eye = sub(&(term_info->eye_pos), &(term_info->sphere_pos));
+	term_info->cos_deg = cos(term_info->deg);
+	term_info->sin_deg = sin(term_info->deg);
 	return (moller97(eye_dir, term_info, ply_info));
 }

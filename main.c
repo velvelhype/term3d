@@ -16,12 +16,12 @@ int	exit_me(char *s)
 void	init_info(t_term *info)
 {
 	info->height = 0;
-	info->screen_z = 10;
-	init_vector(&(info->eye_pos), 0, 0, -100);
+	info->screen_z = -200;
+	init_vector(&(info->eye_pos), 0, 0, -400);
 	init_vector(&(info->sphere_pos), 0, 0, 0);
 	info->sphere_r = 10;
 	info->zoom = 8;
-	info->deg = 0.01;
+	info->deg = 0.0f;
 	info->charset = NULL;
 }
 

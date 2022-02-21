@@ -42,6 +42,5 @@ void	is_min_dis(t_tri tri, t_vector e, t_term *term, t_albedo *alb)
 	{
 		alb->face_normal_vec = calc_normal_vector(tri);
 		alb->min_dis = distance;
-		return ;
 	}
 }

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
+#include <stdlib.h>
 
 float	len_vector(t_vector	*v1, t_vector *v2)
 {
@@ -35,6 +36,8 @@ float	normalize(t_vector *v)
 	float	vnorm;
 
 	vnorm = norm(v);
+	if (vnorm == 0)
+		exit(2);
 	v->x /= vnorm;
 	v->y /= vnorm;
 	v->z /= vnorm;
