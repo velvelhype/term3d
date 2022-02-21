@@ -9,7 +9,10 @@ void	init_vars(t_vector eye_dir, t_moller *vars, t_vector *eye_pos, t_tri *t)
 	cross(&vars->alpha, &eye_dir, &vars->e2);
 	vars->det = dot(&vars->e1, &vars->alpha);
 	if (-vars->epsilon < vars->det && vars->det < vars->epsilon)
+	{
+		vars->det = 0;
 		return ;
+	}
 	vars->invDet = 1.0f / vars->det;
 	vars->r = sub(eye_pos, &t->v0);
 	cross(&vars->beta, &vars->r, &vars->e1);
@@ -23,6 +26,8 @@ void	is_ray_in_tri(t_tri tri, t_vector eye_dir, t_term *term, t_albedo *alb)
 	float		t;
 
 	init_vars(eye_dir, &vars, &term->eye_pos, &tri);
+	if (vars.det == 0)
+		return ;
 	u = dot(&vars.alpha, &vars.r) * vars.invDet;
 	if (u < 0.0f || u > 1.0f)
 		return ;
