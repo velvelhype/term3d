@@ -4,6 +4,10 @@
 		"__locale": "c",
 		"parse_ply.h": "c",
 		"stdio.h": "c",
-		"algorithm": "cpp"
+		"algorithm": "cpp",
+		"__string": "c",
+		"functional": "c",
+		"iterator": "c",
+		"type_traits": "c"
 	}
 }

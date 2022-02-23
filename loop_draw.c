@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:03:14 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/21 09:04:16 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/22 00:15:19 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,26 @@ int	set_char(t_term *tm, float d, char *data)
 	return (ret);
 }
 
+void	rotate_vtx(t_term *tm, t_ply *p)
+{
+	int			i;
+	t_vector	*v;
+	float		new_x;
+	float		new_z;
+
+	i = 0;
+	while (i < p->elem_vertexes)
+	{
+		v = &p->vertexes[i];
+		new_x = v->x * tm->cos - v->z * tm->sin;
+		new_z = v->x * tm->sin + v->z * tm->cos;
+		v->x = new_x;
+		v->z = new_z;
+		i++;
+	}
+	return ;
+}
+
 int	calc_data(t_term *tm, t_ply *ply, char *data)
 {
 	float	d;
@@ -43,6 +63,7 @@ int	calc_data(t_term *tm, t_ply *ply, char *data)
 	int		ret;
 
 	ret = 0;
+	rotate_vtx(tm, ply);
 	y = tm->lim_x;
 	while (y > tm->lim_y)
 	{
@@ -88,7 +109,6 @@ void	loop_draw(t_term *tm, t_ply *ply)
 	int				win_size;
 	struct winsize	w;
 
-	win_size = -1;
 	data = malloc(1);
 	while (1)
 	{
@@ -102,9 +122,6 @@ void	loop_draw(t_term *tm, t_ply *ply)
 			exit_me(NO_DISPLAY);
 		fprintf(stderr, "\033[2J\033[2H");
 		fprintf(stderr, "%s", data);
-		if (tm->deg > 360)
-			tm->deg -= 360;
-		tm->deg += 0.05;
 		usleep(16500);
 	}
 	return ;
