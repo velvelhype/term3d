@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:03:14 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/24 22:58:09 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/24 23:15:48 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 #include "./include/parse_ply.h"
 #include "./include/vector.h"
 
-void	set_char(t_term *tm, float rflct, char *data)
+void	set_char(t_term *tm, float rflct, char *pxl_data)
 {
 	int	round;
 
 	round = (int)(rflct * tm->charset_size);
 	if (round > 0 && round < tm->threshold)
 	{
-		*data = tm->charset[round];
-		*(data + 1) = ' ';
+		*pxl_data = tm->charset[round];
+		*(pxl_data + 1) = ' ';
 	}
 	else if (round >= tm->threshold)
-		memset(data, tm->charset[round - tm->threshold + 1], 2);
+		memset(pxl_data, tm->charset[round - tm->threshold + 1], 2);
 	else
-		memset(data, ' ', 2);
+		memset(pxl_data, ' ', 2);
 	return ;
 }
 
@@ -51,7 +51,7 @@ void	rotate_vtx(t_term *tm, t_ply *ply)
 	return ;
 }
 
-void	calc_data(t_term *tm, t_ply *ply, char *data)
+void	calc_pxl_data(t_term *tm, t_ply *ply, char *pxl_data)
 {
 	float	rflct;
 	int		x;
@@ -66,17 +66,17 @@ void	calc_data(t_term *tm, t_ply *ply, char *data)
 		{
 			rflct = calc_crossing_eye_dir_and_face(x - tm->lim,
 					y - tm->lim, tm, ply);
-			set_char(tm, rflct, data);
-			data += 2;
+			set_char(tm, rflct, pxl_data);
+			pxl_data += 2;
 			x++;
 		}
-		*data++ = '\n';
+		*pxl_data++ = '\n';
 	}
-	*data = '\0';
+	*pxl_data = '\0';
 	return ;
 }
 
-void	update_win_size(t_term *tm, char **data)
+void	update_win_size(t_term *tm, char **pxl_data)
 {
 	size_t			data_size;
 	int				win_size;
@@ -91,13 +91,13 @@ void	update_win_size(t_term *tm, char **data)
 		tm->size = win_size;
 		tm->lim = win_size * 0.5;
 		data_size = (win_size * 2 + 1) * win_size + 1;
-		if (*data != NULL)
+		if (*pxl_data != NULL)
 		{
-			free(*data);
-			*data = NULL;
+			free(*pxl_data);
+			*pxl_data = NULL;
 		}
-		*data = (char *)malloc(data_size);
-		if (*data == NULL)
+		*pxl_data = (char *)malloc(data_size);
+		if (*pxl_data == NULL)
 			exit_with_msg(ERR_MALLOC);
 	}
 	return ;
@@ -105,15 +105,15 @@ void	update_win_size(t_term *tm, char **data)
 
 void	loop_draw(t_term *tm, t_ply *ply)
 {
-	char			*data;
+	char	*pxl_data;
 
-	data = malloc(1);
+	pxl_data = malloc(1);
 	while (1)
 	{
-		update_win_size(tm, &data);
-		calc_data(tm, ply, data);
+		update_win_size(tm, &pxl_data);
+		calc_pxl_data(tm, ply, pxl_data);
 		fprintf(stderr, "\033[2J\033[2H");
-		fprintf(stderr, "%s", data);
+		fprintf(stderr, "%s", pxl_data);
 		usleep(20000);
 	}
 	return ;
