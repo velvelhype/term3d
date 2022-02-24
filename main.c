@@ -7,46 +7,45 @@ void	end(void)
 		system("leaks -q term3d");
 }
 
-int	exit_me(char *s)
+int	exit_me(char *msg)
 {
-	printf("%s", s);
-	exit(0);
+	printf(TERM3D);
+	printf("%s", msg);
+	exit(0); // check err code exit should return.
 }
 
-void	init_info(t_term *info)
+void	init_term(t_term *tm)
 {
-	info->height = 0;
-	info->screen_z = -50;
-	init_vector(&(info->eye_pos), 0, 0, -150);
-	init_vector(&(info->sphere_pos), 0, 0, 0);
-	info->zoom = 8;
-	info->deg = 0.0f;
-	info->sin = sin(ROTATION);
-	info->cos = cos(ROTATION);
-	info->charset = NULL;
+	tm->height = 0;
+	tm->screen_z = SCREEN_Z;
+	init_vector(&(tm->eye_pos), 0, 0, CAMERA_Z);
+	tm->zoom = DEF_ZOOM;
+	tm->sin = sin(ROTATION);
+	tm->cos = cos(ROTATION);
+	tm->charset = NULL;
 }
 
-void	set_charset(int ac, char *charset, t_term *tm)
+void	set_pxlchar(int ac, char *arg_chars, t_term *tm)
 {
 	size_t	charset_size;
 
 	if (ac == 3)
 	{
-		charset_size = strlen(charset);
-		if (charset_size > 2)
+		charset_size = strlen(arg_chars);
+		if (charset_size > MIN_CHARS)
 		{
-			tm->charset = charset;
+			tm->charset = arg_chars;
 			tm->charset_size = charset_size;
 		}
 		else
-			exit_me("term3d >> too short charset");
+			exit_me(ERR_TOO_SHORT);
 	}
 	else
 	{
-		tm->charset = "-~=cxFX8NNNNN";
-		tm->charset_size = 9;
+		tm->charset = DEF_CHARSET;
+		tm->charset_size = SIZE_CHARSET;
 	}
-	tm->threshold = (int)(tm->charset_size * 0.4);
+	tm->threshold = (int)(tm->charset_size * THRESHOLD);
 	return ;
 }
 
@@ -58,10 +57,12 @@ int	main(int argc, char **argv)
 	if (!(argc == 2 || argc == 3))
 		exit_me(ERR_ARG);
 	ply = parse_ply(argv[1]);
-	if (ply == NULL)
-		exit_me(ERR_PARSE);
-	init_info(&tm);
-	set_charset(argc, argv[2], &tm);
+	/*
+	validate_argfile(argv[1]);
+	load_obj(&ply);
+	*/
+	init_term(&tm);
+	set_pxlchar(argc, argv[2], &tm);
 	loop_draw(&tm, ply);
 	return (0);
 }
