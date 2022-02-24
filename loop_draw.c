@@ -12,6 +12,7 @@
 
 #include "./include/term3d.h"
 #include "./include/parse_ply.h"
+#include "./include/vector.h"
 
 int	set_char(t_term *tm, float d, char *data)
 {
@@ -35,7 +36,7 @@ int	set_char(t_term *tm, float d, char *data)
 	return (ret);
 }
 
-void	rotate_vtx(t_term *tm, t_ply *p)
+void	rotate_vtx(t_term *tm, t_ply *ply)
 {
 	int			i;
 	t_vector	*v;
@@ -43,9 +44,9 @@ void	rotate_vtx(t_term *tm, t_ply *p)
 	float		new_z;
 
 	i = 0;
-	while (i < p->elem_vertexes)
+	while (i < ply->elem_vertexes)
 	{
-		v = &p->vertexes[i];
+		v = &ply->vertexes[i];
 		new_x = v->x * tm->cos - v->z * tm->sin;
 		new_z = v->x * tm->sin + v->z * tm->cos;
 		v->x = new_x;
@@ -70,7 +71,7 @@ int	calc_data(t_term *tm, t_ply *ply, char *data)
 		x = tm->lim_y;
 		while (x < tm->lim_x)
 		{
-			d = is_colided(x, y, tm, ply);
+			d = calc_crossing_eye_dir_and_face(x, y, tm, ply);
 			ret += set_char(tm, d, data);
 			data += 2;
 			x++;

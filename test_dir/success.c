@@ -19,11 +19,16 @@ int	main()
 	"/Users/kazukimori/Codes/term3d/my_term3d/obj/torus_and_cube.ply",
 	NULL};
 
-	//
-	char **tests[5];
+	char *beet[] = 
+	{"/Users/kazukimori/Codes/term3d/my_term3d/term3d",
+	"/Users/kazukimori/Codes/term3d/my_term3d/obj/beethoven.ply",
+	NULL};
+
+	char **tests[6];
 	tests[0] = nop;
 	tests[1] = cube;
 	tests[2] = torus_and_cube;
+	tests[3] = beet;
 	tests[4] = NULL;
 
 	int i = 0;
@@ -36,7 +41,7 @@ int	main()
 		}
 		else
 		{
-			sleep(40);
+			sleep(20);
 			kill(f, SIGTERM);
 		}
 		i++;

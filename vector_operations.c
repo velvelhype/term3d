@@ -1,6 +1,6 @@
 #include "./include/vector.h"
 
-t_vector	add(const t_vector *a, const t_vector *b)
+t_vector	add_vecs(const t_vector *a, const t_vector *b)
 {
 	t_vector	ret;
 
@@ -10,7 +10,7 @@ t_vector	add(const t_vector *a, const t_vector *b)
 	return (ret);
 }
 
-t_vector	sub(const t_vector *a, const t_vector *b)
+t_vector	sub_vecs(const t_vector *a, const t_vector *b)
 {
 	t_vector	ret;
 
@@ -20,7 +20,7 @@ t_vector	sub(const t_vector *a, const t_vector *b)
 	return (ret);
 }
 
-t_vector	mult(const t_vector *a, float b)
+t_vector	mult_vecs(const t_vector *a, float b)
 {
 	t_vector	ret;
 
@@ -30,12 +30,12 @@ t_vector	mult(const t_vector *a, float b)
 	return (ret);
 }
 
-float	dot(const t_vector *a, const t_vector *b)
+float	dot_vecs(const t_vector *a, const t_vector *b)
 {
 	return (a->x * b->x + a->y * b->y + a->z * b->z);
 }
 
-void	cross(t_vector *o, const t_vector *a, const t_vector *b)
+void	cross_vecs(t_vector *o, const t_vector *a, const t_vector *b)
 {
 	o->x = a->y * b->z - a->z * b->y;
 	o->y = a->z * b->x - a->x * b->z;
