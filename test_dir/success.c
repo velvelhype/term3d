@@ -24,7 +24,6 @@ int	main()
 	"/Users/kazukimori/Codes/term3d/my_term3d/obj/beethoven.ply",
 	NULL};
 
-	//
 	char **tests[6];
 	tests[0] = nop;
 	tests[1] = cube;
@@ -42,7 +41,7 @@ int	main()
 		}
 		else
 		{
-			sleep(4);
+			sleep(20);
 			kill(f, SIGTERM);
 		}
 		i++;

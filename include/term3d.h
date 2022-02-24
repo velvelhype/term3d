@@ -4,6 +4,7 @@
 # define TRUE 1
 # define FALSE 0
 # define M_PI   3.14159265358979323846264338327950288
+# define EPSILON 0.000000001
 # define ERR_ARG "term3d >> invalid argument\n"
 # define ERR_MALLOC "term3d >> malloc failed\n"
 # define NO_DISPLAY "term3d >> nothing to display. quit.\n"
@@ -22,7 +23,6 @@
 
 typedef struct s_moller
 {
-	float		epsilon;
 	t_vector	e1;
 	t_vector	e2;
 	t_vector	alpha;
@@ -61,14 +61,14 @@ typedef struct s_term
 typedef struct s_forefront
 {
 	int			is_exist;
-	t_vector	min_dis;
+	float		min_dis;
 	t_vector	face_normal_vec;
 }	t_forefront;
 
-float		is_colided(int x, int y, t_term *info, t_ply *ply_info);
+float		calc_crossing_eye_dir_and_face(int x, int y, t_term *info, t_ply *ply_info);
 t_vector	calc_normal_vector(t_tri tri);
 float		calc_reflectance(t_vector eye_dir, t_forefront alb_info);
-void		try_update_forefront(t_tri t, t_vector e, t_term *term, t_forefront *alb);
+void		try_update_forefront(t_tri t, t_vector e, t_forefront *alb);
 void		loop_draw(t_term *tm, t_ply *ply);
 int			exit_me(char *s);
 

@@ -1,5 +1,6 @@
 #include "./include/term3d.h"
 #include "./include/vector.h"
+#include "./include/simple_operation.h"
 
 t_vector	calc_normal_vector(t_tri tri)
 {
@@ -14,6 +15,25 @@ t_vector	calc_normal_vector(t_tri tri)
 	return (normal_vector);
 }
 
+void	try_update_forefront(t_tri tri, t_vector eye_dir, \
+	t_forefront *forefront)
+{
+	float	distance;
+	distance = norm(&eye_dir);
+	if (forefront->is_exist == FALSE)
+	{
+		forefront->is_exist = TRUE;
+		forefront->face_normal_vec = calc_normal_vector(tri);
+		forefront->min_dis = distance;
+		return ;
+	}
+	if (distance < forefront->min_dis)
+	{
+		forefront->face_normal_vec = calc_normal_vector(tri);
+		forefront->min_dis = distance;
+	}
+}
+
 float	calc_reflectance(t_vector eye_dir, t_forefront alb_info)
 {
 	float		reflectance;
@@ -21,28 +41,6 @@ float	calc_reflectance(t_vector eye_dir, t_forefront alb_info)
 	mult_vecs(&eye_dir, -1);
 	normalize(&eye_dir);
 	reflectance = dot_vecs(&alb_info.face_normal_vec, &eye_dir);
-	reflectance *= -1;
+	reflectance = mod(reflectance);
 	return (reflectance);
-}
-
-void	try_update_forefront(t_tri tri, t_vector eye_dir, \
-	t_term *term, t_forefront *forefront_face)
-{
-	t_vector	distance;
-
-	distance = eye_dir;
-	distance = add_vecs(&term->eye_pos, &distance);
-	if (forefront_face->is_exist == FALSE)
-	{
-		forefront_face->is_exist = TRUE;
-		forefront_face->face_normal_vec = calc_normal_vector(tri);
-		forefront_face->min_dis = distance;
-		return ;
-	}
-	if (len_vector(&distance, &term->eye_pos)
-		< len_vector(&forefront_face->min_dis, &term->eye_pos))
-	{
-		forefront_face->face_normal_vec = calc_normal_vector(tri);
-		forefront_face->min_dis = distance;
-	}
 }

@@ -71,7 +71,7 @@ int	calc_data(t_term *tm, t_ply *ply, char *data)
 		x = tm->lim_y;
 		while (x < tm->lim_x)
 		{
-			d = is_colided(x, y, tm, ply);
+			d = calc_crossing_eye_dir_and_face(x, y, tm, ply);
 			ret += set_char(tm, d, data);
 			data += 2;
 			x++;
