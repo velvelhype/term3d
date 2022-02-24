@@ -1,9 +1,14 @@
 #ifndef TERM3D_H
 # define TERM3D_H
 
+# define TRUE 1
+# define FALSE 0
 # define M_PI   3.14159265358979323846264338327950288
+# define EPSILON 0.000000001
+
 # define ROTATION 0.05f
-# define CAMERA_Z -100
+# define SCREEN_Z -50
+# define CAMERA_Z -150
 # define DEF_ZOOM 8
 # define MIN_CHARS 2
 # define DEF_CHARSET "-~=cxFX8NNNNN"
@@ -30,7 +35,6 @@
 
 typedef struct s_moller
 {
-	float		epsilon;
 	t_vector	e1;
 	t_vector	e2;
 	t_vector	alpha;
@@ -66,10 +70,17 @@ typedef struct s_term
 	int			threshold;
 }	t_term;
 
-float		is_colided(int x, int y, t_term *info, t_ply *ply_info);
+typedef struct s_forefront
+{
+	int			is_exist;
+	float		min_dis;
+	t_vector	face_normal_vec;
+}	t_forefront;
+
+float		calc_crossing_eye_dir_and_face(int x, int y, t_term *i, t_ply *p);
 t_vector	calc_normal_vector(t_tri tri);
-float		calc_albedo(t_vector eye_dir, t_albedo alb_info);
-void		is_min_dis(t_tri t, t_vector e, t_term *term, t_albedo *alb);
+float		calc_reflectance(t_vector eye_dir, t_forefront alb_info);
+void		try_update_forefront(t_tri t, t_vector e, t_forefront *front);
 void		loop_draw(t_term *tm, t_ply *ply);
 int			exit_me(char *s);
 

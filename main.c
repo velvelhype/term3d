@@ -17,7 +17,7 @@ int	exit_w_msg(char *msg)
 void	init_term(t_term *tm)
 {
 	tm->height = 0;
-	tm->screen_z = 0;
+	tm->screen_z = SCREEN_Z;
 	init_vector(&(tm->eye_pos), 0, 0, CAMERA_Z);
 	tm->zoom = DEFAULT_ZOOM;
 	tm->sin = sin(ROTATION);

@@ -1,15 +1,16 @@
 NAME = term3d
 
-CC = gcc -O3
+CC = gcc
 
-# CFLAGS = -Werror -Wall -Wextra -g -fsanitize=address
+CFLAGS = -O3 -Werror -Wall -Wextra -g -fsanitize=address
 SRCS = main.c \
-is_colided.c \
+calc_crossing_eye_dir_and_face.c \
 vector.c \
 parse_ply.c \
 vector_operations.c \
 loop_draw.c \
 shade.c \
+simple_operation.c \
 
 OBJS = $(SRCS:.c=.o)
 
