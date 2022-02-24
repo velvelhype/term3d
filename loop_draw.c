@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:03:14 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/24 22:41:06 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/24 22:58:09 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	loop_draw(t_term *tm, t_ply *ply)
 		calc_data(tm, ply, data);
 		fprintf(stderr, "\033[2J\033[2H");
 		fprintf(stderr, "%s", data);
-		usleep(16500);
+		usleep(20000);
 	}
 	return ;
 }
