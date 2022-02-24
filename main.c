@@ -7,7 +7,7 @@ void	end(void)
 		system("leaks -q term3d");
 }
 
-int	exit_w_msg(char *msg)
+int	exit_me(char *msg)
 {
 	printf(TERM3D);
 	printf("%s", msg);
@@ -19,7 +19,7 @@ void	init_term(t_term *tm)
 	tm->height = 0;
 	tm->screen_z = SCREEN_Z;
 	init_vector(&(tm->eye_pos), 0, 0, CAMERA_Z);
-	tm->zoom = DEFAULT_ZOOM;
+	tm->zoom = DEF_ZOOM;
 	tm->sin = sin(ROTATION);
 	tm->cos = cos(ROTATION);
 	tm->charset = NULL;
@@ -38,7 +38,7 @@ void	set_pxlchar(int ac, char *arg_chars, t_term *tm)
 			tm->charset_size = charset_size;
 		}
 		else
-			exit_w_msg(ERR_TOO_SHORT);
+			exit_me(ERR_TOO_SHORT);
 	}
 	else
 	{
@@ -52,14 +52,17 @@ void	set_pxlchar(int ac, char *arg_chars, t_term *tm)
 int	main(int argc, char **argv)
 {
 	t_term	tm;
-	t_ply	ply;
+	t_ply	*ply;
 
 	if (!(argc == 2 || argc == 3))
-		exit_w_msg(ERR_ARG);
+		exit_me(ERR_ARG);
+	ply = parse_ply(argv[1]);
+	/*
 	validate_argfile(argv[1]);
 	load_obj(&ply);
+	*/
 	init_term(&tm);
 	set_pxlchar(argc, argv[2], &tm);
-	loop_draw(&tm, &ply);
+	loop_draw(&tm, ply);
 	return (0);
 }
