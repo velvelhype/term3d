@@ -7,8 +7,8 @@
 # define EPSILON 0.000000001
 
 # define ROTATION 0.05f
-# define SCREEN_Z -50
-# define CAMERA_Z -150
+# define SCREEN_Z -20
+# define CAMERA_Z -120
 # define DEF_ZOOM 8
 # define MIN_CHARS 2
 # define DEF_CHARSET "-~=cxFX8NNNNN"
@@ -53,18 +53,12 @@ typedef struct s_tri
 
 typedef struct s_term
 {
-	int			width;
-	int			height;
-	int			lim_x;
-	int			lim_y;
+	int			size;
+	int			lim;
 	int			screen_z;
-	int			zoom;
-	float		deg;
-	double		cos;
-	double		sin;
+	double		rotate_cos;
+	double		rotate_sin;
 	t_vector	eye_pos;
-	t_vector	sphere_pos;
-	int			sphere_r;
 	char		*charset;
 	size_t		charset_size;
 	int			threshold;

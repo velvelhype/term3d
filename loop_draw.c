@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:03:14 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/22 00:15:19 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/24 23:15:48 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,21 @@
 #include "./include/parse_ply.h"
 #include "./include/vector.h"
 
-int	set_char(t_term *tm, float d, char *data)
+void	set_char(t_term *tm, float rflct, char *pxl_data)
 {
-	int		ret;
-	int		round;
+	int	round;
 
-	ret = 1;
-	round = (int)(d * tm->charset_size);
+	round = (int)(rflct * tm->charset_size);
 	if (round > 0 && round < tm->threshold)
 	{
-		memset(data, tm->charset[round], 1);
-		memset(data + 1, ' ', 1);
+		*pxl_data = tm->charset[round];
+		*(pxl_data + 1) = ' ';
 	}
 	else if (round >= tm->threshold)
-		memset(data, tm->charset[round - tm->threshold + 1], 2);
+		memset(pxl_data, tm->charset[round - tm->threshold + 1], 2);
 	else
-	{
-		memset(data, ' ', 2);
-		ret = 0;
-	}
-	return (ret);
+		memset(pxl_data, ' ', 2);
+	return ;
 }
 
 void	rotate_vtx(t_term *tm, t_ply *ply)
@@ -47,8 +42,8 @@ void	rotate_vtx(t_term *tm, t_ply *ply)
 	while (i < ply->elem_vertexes)
 	{
 		v = &ply->vertexes[i];
-		new_x = v->x * tm->cos - v->z * tm->sin;
-		new_z = v->x * tm->sin + v->z * tm->cos;
+		new_x = v->x * tm->rotate_cos - v->z * tm->rotate_sin;
+		new_z = v->x * tm->rotate_sin + v->z * tm->rotate_cos;
 		v->x = new_x;
 		v->z = new_z;
 		i++;
@@ -56,74 +51,70 @@ void	rotate_vtx(t_term *tm, t_ply *ply)
 	return ;
 }
 
-int	calc_data(t_term *tm, t_ply *ply, char *data)
+void	calc_pxl_data(t_term *tm, t_ply *ply, char *pxl_data)
 {
-	float	d;
+	float	rflct;
 	int		x;
 	int		y;
-	int		ret;
 
-	ret = 0;
 	rotate_vtx(tm, ply);
-	y = tm->lim_x;
-	while (y > tm->lim_y)
+	y = tm->size;
+	while (y-- > 0)
 	{
-		x = tm->lim_y;
-		while (x < tm->lim_x)
+		x = 0;
+		while (x < tm->size)
 		{
-			d = calc_crossing_eye_dir_and_face(x, y, tm, ply);
-			ret += set_char(tm, d, data);
-			data += 2;
+			rflct = calc_crossing_eye_dir_and_face(x - tm->lim,
+					y - tm->lim, tm, ply);
+			set_char(tm, rflct, pxl_data);
+			pxl_data += 2;
 			x++;
 		}
-		memset(data, '\n', 1);
-		data++;
-		y--;
+		*pxl_data++ = '\n';
 	}
-	memset(data, '\0', 1);
-	return (ret);
+	*pxl_data = '\0';
+	return ;
 }
 
-char	*change_size(t_term *tm, char **data, int size)
+void	update_win_size(t_term *tm, char **pxl_data)
 {
-	size_t	data_size;
+	size_t			data_size;
+	int				win_size;
+	struct winsize	w;
 
-	tm->width = size;
-	tm->height = size;
-	tm->lim_x = size * 0.5;
-	tm->lim_y = size * -0.5;
-	data_size = (size * 2 + 1) * tm->height + 1;
-	if (*data != NULL)
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+	win_size = w.ws_col * 0.5;
+	if (win_size > w.ws_row)
+		win_size = w.ws_row;
+	if (win_size != tm->size)
 	{
-		free(*data);
-		*data = NULL;
+		tm->size = win_size;
+		tm->lim = win_size * 0.5;
+		data_size = (win_size * 2 + 1) * win_size + 1;
+		if (*pxl_data != NULL)
+		{
+			free(*pxl_data);
+			*pxl_data = NULL;
+		}
+		*pxl_data = (char *)malloc(data_size);
+		if (*pxl_data == NULL)
+			exit_with_msg(ERR_MALLOC);
 	}
-	*data = (char *)malloc(data_size);
-	if (*data == NULL)
-		exit_with_msg(ERR_MALLOC);
-	return (*data);
+	return ;
 }
 
 void	loop_draw(t_term *tm, t_ply *ply)
 {
-	char			*data;
-	int				win_size;
-	struct winsize	w;
+	char	*pxl_data;
 
-	data = malloc(1);
+	pxl_data = malloc(1);
 	while (1)
 	{
-		ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-		win_size = w.ws_col * 0.5;
-		if (win_size > w.ws_row)
-			win_size = w.ws_row;
-		if (win_size != tm->height)
-			data = change_size(tm, &data, win_size);
-		if (!calc_data(tm, ply, data))
-			exit_with_msg(NO_DISPLAY);
+		update_win_size(tm, &pxl_data);
+		calc_pxl_data(tm, ply, pxl_data);
 		fprintf(stderr, "\033[2J\033[2H");
-		fprintf(stderr, "%s", data);
-		usleep(16500);
+		fprintf(stderr, "%s", pxl_data);
+		usleep(20000);
 	}
 	return ;
 }

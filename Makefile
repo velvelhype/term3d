@@ -2,6 +2,7 @@ NAME = term3d
 
 CC = gcc
 
+#CFLAGS = -O3 -Werror -Wall -Wextra
 CFLAGS = -O3 -Werror -Wall -Wextra -g -fsanitize=address
 SRCS = main.c \
 calc_crossing_eye_dir_and_face.c \
@@ -11,6 +12,7 @@ vector_operations.c \
 loop_draw.c \
 shade.c \
 simple_operation.c \
+set_ply_config.c
 
 OBJS = $(SRCS:.c=.o)
 
