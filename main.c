@@ -16,12 +16,11 @@ int	exit_me(char *msg)
 
 void	init_term(t_term *tm)
 {
-	tm->height = 0;
+	tm->size = 0;
 	tm->screen_z = SCREEN_Z;
 	init_vector(&(tm->eye_pos), 0, 0, CAMERA_Z);
-	tm->zoom = DEF_ZOOM;
-	tm->sin = sin(ROTATION);
-	tm->cos = cos(ROTATION);
+	tm->rotate_sin = sin(ROTATION);
+	tm->rotate_cos = cos(ROTATION);
 	tm->charset = NULL;
 }
 
