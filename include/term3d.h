@@ -60,7 +60,6 @@ typedef struct s_term
 
 typedef struct s_forefront
 {
-	//TODO		交差する面が存在するか確かめるフラグ
 	int			is_exist;
 	t_vector	min_dis;
 	t_vector	face_normal_vec;

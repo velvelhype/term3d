@@ -18,7 +18,7 @@ void	init_vars(t_vector eye_dir, t_moller *vars, t_vector *eye_pos, t_tri *t)
 	cross_vecs(&vars->beta, &vars->r, &vars->e1);
 }
 
-void	simul_equations(t_tri tri, t_vector eye_dir, t_term *term, t_forefront *forefront)
+float	simul_equations(t_tri tri, t_vector eye_dir, t_term *term)
 {
 	t_moller	vars;
 	float		u;
@@ -27,17 +27,17 @@ void	simul_equations(t_tri tri, t_vector eye_dir, t_term *term, t_forefront *for
 
 	init_vars(eye_dir, &vars, &term->eye_pos, &tri);
 	if (vars.det == 0)
-		return ;
+		return (-1);
 	u = dot_vecs(&vars.alpha, &vars.r) * vars.invDet;
 	if (u < 0.0f || u > 1.0f)
-		return ;
+		return (-1);
 	v = dot_vecs(&eye_dir, &vars.beta) * vars.invDet;
 	if (v < 0.0f || u + v > 1.0f)
-		return ;
+		return (-1);
 	t = dot_vecs(&vars.e2, &vars.beta) * vars.invDet;
 	if (t < 0.0f)
-		return ;
-	try_update_forefront(tri, mult_vecs(&eye_dir, t), term, forefront);
+		return (-1);
+	return	(t);
 }
 
 float	crossing_detection(t_vector eye_dir, t_term *tm,
@@ -45,6 +45,7 @@ float	crossing_detection(t_vector eye_dir, t_term *tm,
 {
 	t_tri		tri;
 	int			i;
+	float		equations_return;
 
 	forefront->is_exist = FALSE;
 	i = 0;
@@ -53,7 +54,9 @@ float	crossing_detection(t_vector eye_dir, t_term *tm,
 		tri.v0 = mult_vecs(&p->vertexes[p->faces[i].v1], tm->zoom);
 		tri.v1 = mult_vecs(&p->vertexes[p->faces[i].v2], tm->zoom);
 		tri.v2 = mult_vecs(&p->vertexes[p->faces[i].v3], tm->zoom);
-		simul_equations(tri, eye_dir, tm, forefront);
+		equations_return = simul_equations(tri, eye_dir, tm);
+		if (equations_return != -1)
+			try_update_forefront(tri, mult_vecs(&eye_dir, equations_return), tm, forefront);
 		i++;
 	}
 	return (-1);
