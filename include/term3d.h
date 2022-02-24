@@ -65,10 +65,10 @@ typedef struct s_forefront
 	t_vector	face_normal_vec;
 }	t_forefront;
 
-float		calc_crossing_eye_dir_and_face(int x, int y, t_term *info, t_ply *ply_info);
+float		calc_crossing_eye_dir_and_face(int x, int y, t_term *i, t_ply *p);
 t_vector	calc_normal_vector(t_tri tri);
 float		calc_reflectance(t_vector eye_dir, t_forefront alb_info);
-void		try_update_forefront(t_tri t, t_vector e, t_forefront *alb);
+void		try_update_forefront(t_tri t, t_vector e, t_forefront *front);
 void		loop_draw(t_term *tm, t_ply *ply);
 int			exit_me(char *s);
 

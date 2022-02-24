@@ -36,7 +36,7 @@ float	simul_equations(t_tri tri, t_vector eye_dir, t_term *term)
 	t = dot_vecs(&vars.e2, &vars.beta) * vars.invDet;
 	if (t < 0.0f)
 		return (-1);
-	return	(t);
+	return (t);
 }
 
 float	crossing_detection(t_vector eye_dir, t_term *tm,
@@ -57,13 +57,15 @@ float	crossing_detection(t_vector eye_dir, t_term *tm,
 		//
 		equations_return = simul_equations(tri, eye_dir, tm);
 		if (equations_return != -1)
-			try_update_forefront(tri, mult_vecs(&eye_dir, equations_return), forefront);
+			try_update_forefront(tri, \
+			mult_vecs(&eye_dir, equations_return), forefront);
 		i++;
 	}
 	return (-1);
 }
 
-float	calc_crossing_eye_dir_and_face(int x, int y, t_term *term_info, t_ply *ply_info)
+float	calc_crossing_eye_dir_and_face(int x, int y, \
+	t_term *term_info, t_ply *ply_info)
 {
 	t_forefront	forefront;
 	t_vector	screen_pos;
@@ -74,5 +76,5 @@ float	calc_crossing_eye_dir_and_face(int x, int y, t_term *term_info, t_ply *ply
 	crossing_detection(eye_dir, term_info, ply_info, &forefront);
 	if (forefront.is_exist == TRUE)
 		return (calc_reflectance(eye_dir, forefront));
-	return	(-1);
+	return (-1);
 }

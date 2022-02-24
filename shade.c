@@ -19,6 +19,7 @@ void	try_update_forefront(t_tri tri, t_vector eye_dir, \
 	t_forefront *forefront)
 {
 	float	distance;
+
 	distance = norm(&eye_dir);
 	if (forefront->is_exist == FALSE)
 	{
