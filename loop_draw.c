@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:03:14 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/24 22:18:43 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/24 22:23:07 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	calc_data(t_term *tm, t_ply *ply, char *data)
 		while (x < tm->size)
 		{
 			rflct = calc_crossing_eye_dir_and_face(x - tm->lim,
-												y - tm->lim, tm, ply);
+					y - tm->lim, tm, ply);
 			set_char(tm, rflct, data);
 			data += 2;
 			x++;

@@ -11,7 +11,7 @@ int	exit_me(char *msg)
 {
 	printf(TERM3D);
 	printf("%s", msg);
-	exit(0); // check err code exit should return.
+	exit(0);
 }
 
 void	init_term(t_term *tm)
@@ -56,10 +56,6 @@ int	main(int argc, char **argv)
 	if (!(argc == 2 || argc == 3))
 		exit_me(ERR_ARG);
 	ply = parse_ply(argv[1]);
-	/*
-	validate_argfile(argv[1]);
-	load_obj(&ply);
-	*/
 	init_term(&tm);
 	set_pxlchar(argc, argv[2], &tm);
 	loop_draw(&tm, ply);
