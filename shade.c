@@ -21,15 +21,9 @@ void	try_update_forefront(t_tri tri, t_vector eye_dir, \
 	float	distance;
 
 	distance = norm(&eye_dir);
-	if (forefront->is_exist == FALSE)
+	if (forefront->is_exist == FALSE || distance < forefront->min_dis)
 	{
 		forefront->is_exist = TRUE;
-		forefront->face_normal_vec = calc_normal_vector(tri);
-		forefront->min_dis = distance;
-		return ;
-	}
-	if (distance < forefront->min_dis)
-	{
 		forefront->face_normal_vec = calc_normal_vector(tri);
 		forefront->min_dis = distance;
 	}
