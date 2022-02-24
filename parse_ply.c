@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:56:58 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/24 21:12:06 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/24 21:18:55 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,9 @@ void	*set_vertexes(t_ply *ply, FILE *f_stream)
 	{
 		if (fscanf(f_stream, "%99f %99f %99f", &vtx->x, &vtx->y, &vtx->z) != 3)
 			exit_me(ERR_FMT);
+		vtx->x *= DEF_ZOOM;
+		vtx->y *= DEF_ZOOM;
+		vtx->z *= DEF_ZOOM;
 		vtx++;
 	}
 	return (ply->vertexes);
