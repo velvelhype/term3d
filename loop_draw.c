@@ -100,7 +100,7 @@ char	*change_size(t_term *tm, char **data, int size)
 	}
 	*data = (char *)malloc(data_size);
 	if (*data == NULL)
-		exit_me(ERR_MALLOC);
+		exit_with_msg(ERR_MALLOC);
 	return (*data);
 }
 
@@ -120,7 +120,7 @@ void	loop_draw(t_term *tm, t_ply *ply)
 		if (win_size != tm->height)
 			data = change_size(tm, &data, win_size);
 		if (!calc_data(tm, ply, data))
-			exit_me(NO_DISPLAY);
+			exit_with_msg(NO_DISPLAY);
 		fprintf(stderr, "\033[2J\033[2H");
 		fprintf(stderr, "%s", data);
 		usleep(16500);
