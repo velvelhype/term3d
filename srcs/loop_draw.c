@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./include/term3d.h"
-#include "./include/parse_ply.h"
-#include "./include/vector.h"
+#include "term3d.h"
+#include "parse_ply.h"
+#include "vector.h"
 
 void	set_char(t_term *tm, float rflct, char *pxl_data)
 {

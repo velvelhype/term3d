@@ -1,5 +1,5 @@
-#include "./include/term3d.h"
-#include "./include/vector.h"
+#include "term3d.h"
+#include "vector.h"
 
 void	init_vars(t_vector eye_dir, t_moller *vars, t_vector *eye_pos, t_tri *t)
 {

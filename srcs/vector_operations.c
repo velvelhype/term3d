@@ -1,4 +1,4 @@
-#include "./include/vector.h"
+#include "vector.h"
 
 t_vector	add_vecs(const t_vector *a, const t_vector *b)
 {

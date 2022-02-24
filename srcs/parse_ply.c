@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./include/parse_ply.h"
-#include "./include/term3d.h"
+#include "parse_ply.h"
+#include "term3d.h"
 
 void	check_ply_header(t_ply *p, FILE *f_stream)
 {

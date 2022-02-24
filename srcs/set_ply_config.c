@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./include/parse_ply.h"
-#include "./include/term3d.h"
+#include "parse_ply.h"
+#include "term3d.h"
 
 void	*recreate_faces(t_ply *ply_info, t_face *old, int *read, int elm)
 {
