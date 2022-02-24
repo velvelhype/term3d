@@ -1,6 +1,6 @@
-#include "./include/term3d.h"
-#include "./include/vector.h"
-#include "./include/simple_operation.h"
+#include "term3d.h"
+#include "vector.h"
+#include "simple_operation.h"
 
 t_vector	calc_normal_vector(t_tri tri)
 {

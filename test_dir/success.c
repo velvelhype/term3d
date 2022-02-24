@@ -6,22 +6,22 @@ int	main()
 {
 	char *nop[] = 
 	{"/Users/kazukimori/Codes/term3d/my_term3d/term3d",
-	"/Users/kazukimori/Codes/term3d/my_term3d/obj/nop.ply",
+	"/Users/kazukimori/Codes/term3d/my_term3d/ply_files/nop.ply",
 	NULL};
 
 	char *cube[] =
 	{"/Users/kazukimori/Codes/term3d/my_term3d/term3d",
-	"/Users/kazukimori/Codes/term3d/my_term3d/obj/cube.ply",
+	"/Users/kazukimori/Codes/term3d/my_term3d/ply_files/cube.ply",
 	NULL};
 
 	char *torus_and_cube[] =
 	{"/Users/kazukimori/Codes/term3d/my_term3d/term3d",
-	"/Users/kazukimori/Codes/term3d/my_term3d/obj/torus_and_cube.ply",
+	"/Users/kazukimori/Codes/term3d/my_term3d/ply_files/torus_and_cube.ply",
 	NULL};
 
 	char *beet[] = 
 	{"/Users/kazukimori/Codes/term3d/my_term3d/term3d",
-	"/Users/kazukimori/Codes/term3d/my_term3d/obj/beethoven.ply",
+	"/Users/kazukimori/Codes/term3d/my_term3d/ply_files/beethoven.ply",
 	NULL};
 
 	char **tests[6];

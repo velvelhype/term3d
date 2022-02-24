@@ -1,5 +1,5 @@
-#include "./include/term3d.h"
-#include "./include/parse_ply.h"
+#include "term3d.h"
+#include "parse_ply.h"
 
 void	end(void)
 {

@@ -6,37 +6,37 @@ int	main()
 {
 	char	*term3d = "/Users/tyamagis/term_3d_kamori/term3d";
 	char	*f0[] = {term3d,
-		"/Users/tyamagis/term_3d_kamori/obj/invalid_files/00_dup_face.ply",
+		"/Users/tyamagis/term_3d_kamori/ply_files/invalid_files/00_dup_face.ply",
 		NULL};
 	char	*f1[] = {term3d,
-		"/Users/tyamagis/term_3d_kamori/obj/invalid_files/01_dup_vtx.ply",
+		"/Users/tyamagis/term_3d_kamori/ply_files/invalid_files/01_dup_vtx.ply",
 		NULL};
 	char	*f2[] = {term3d,
-		"/Users/tyamagis/term_3d_kamori/obj/invalid_files/02_invalid_face.ply",
+		"/Users/tyamagis/term_3d_kamori/ply_files/invalid_files/02_invalid_face.ply",
 		NULL};
 	char	*f3[] = {term3d,
-		"/Users/tyamagis/term_3d_kamori/obj/invalid_files/03_invalid_vertex.ply",
+		"/Users/tyamagis/term_3d_kamori/ply_files/invalid_files/03_invalid_vertex.ply",
 		NULL};
 	char	*f4[] = {term3d,
-		"/Users/tyamagis/term_3d_kamori/obj/invalid_files/04_few_vtx_in_face.ply",
+		"/Users/tyamagis/term_3d_kamori/ply_files/invalid_files/04_few_vtx_in_face.ply",
 		NULL};
 	char	*f5[] = {term3d,
-		"/Users/tyamagis/term_3d_kamori/obj/invalid_files/05_large_coordinates.ply",
+		"/Users/tyamagis/term_3d_kamori/ply_files/invalid_files/05_large_coordinates.ply",
 		NULL};
 	char	*f6[] = {term3d,
-		"/Users/tyamagis/term_3d_kamori/obj/invalid_files/06_many_vtx_in_face.ply",
+		"/Users/tyamagis/term_3d_kamori/ply_files/invalid_files/06_many_vtx_in_face.ply",
 		NULL};
 	char	*f7[] = {term3d,
-		"/Users/tyamagis/term_3d_kamori/obj/invalid_files/07_no_face.ply",
+		"/Users/tyamagis/term_3d_kamori/ply_files/invalid_files/07_no_face.ply",
 		NULL};
 	char	*f8[] = {term3d,
-		"/Users/tyamagis/term_3d_kamori/obj/invalid_files/08_no_ply.ply",
+		"/Users/tyamagis/term_3d_kamori/ply_files/invalid_files/08_no_ply.ply",
 		NULL};
 	char	*f9[] = {term3d,
-		"/Users/tyamagis/term_3d_kamori/obj/invalid_files/09_no_vertex.ply",
+		"/Users/tyamagis/term_3d_kamori/ply_files/invalid_files/09_no_vertex.ply",
 		NULL};
 	char	*f10[] = {term3d,
-		"/Users/tyamagis/term_3d_kamori/obj/invalid_files/10_same_vtx_in_face.ply",
+		"/Users/tyamagis/term_3d_kamori/ply_files/invalid_files/10_same_vtx_in_face.ply",
 		NULL};
 	char **tests[12];
 	tests[0] = f0;

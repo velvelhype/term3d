@@ -1,4 +1,4 @@
-#include "./include/simple_operation.h"
+#include "simple_operation.h"
 
 float	max(float a, float b)
 {

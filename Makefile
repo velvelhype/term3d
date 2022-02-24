@@ -2,15 +2,15 @@ NAME = term3d
 
 CC = gcc
 
-CFLAGS = -O3 -Werror -Wall -Wextra -g -fsanitize=address
-SRCS = main.c \
-calc_crossing_eye_dir_and_face.c \
-vector.c \
-parse_ply.c \
-vector_operations.c \
-loop_draw.c \
-shade.c \
-simple_operation.c \
+CFLAGS = -O3 -Werror -Wall -Wextra -g -fsanitize=address -Iinclude
+SRCS = srcs/main.c \
+srcs/calc_crossing_eye_dir_and_face.c \
+srcs/vector.c \
+srcs/parse_ply.c \
+srcs/vector_operations.c \
+srcs/loop_draw.c \
+srcs/shade.c \
+srcs/simple_operation.c \
 
 OBJS = $(SRCS:.c=.o)
 
