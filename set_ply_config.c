@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 22:08:11 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/24 22:14:38 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/24 22:42:47 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*recreate_faces(t_ply *ply_info, t_face *old, int *read, int elm)
 
 	new = (t_face *)malloc(sizeof(t_face) * elm);
 	if (new == NULL)
-		exit_me(ERR_MALLOC);
+		exit_with_msg(ERR_MALLOC);
 	i = 0;
 	while (i < *read)
 	{
@@ -46,7 +46,7 @@ void	*poly_to_tri(t_ply *ply_info, FILE *f_stream, int *read, int vtx)
 	faces = recreate_faces(ply_info, ply_info->faces, read, new_elm);
 	if (fscanf(f_stream, "%99d %99d %99d", &faces[*read].v1, &faces[*read].v2, \
 			&faces[*read].v3) != 3)
-		exit_me(ERR_FMT);
+		exit_with_msg(ERR_FMT);
 	v1 = faces[*read].v1;
 	v3 = faces[*read].v3;
 	(*read)++;
@@ -55,7 +55,7 @@ void	*poly_to_tri(t_ply *ply_info, FILE *f_stream, int *read, int vtx)
 		faces[*read].v1 = v1;
 		faces[*read].v2 = v3;
 		if (!fscanf(f_stream, "%99d", &faces[*read].v3))
-			exit_me(ERR_FMT);
+			exit_with_msg(ERR_FMT);
 		v3 = faces[*read].v3;
 		(*read)++;
 	}
@@ -73,12 +73,12 @@ void	*set_faces(t_ply *ply_info, FILE *f_stream)
 	while (i < ply_info->elem_faces)
 	{
 		if (!fscanf(f_stream, "%99d", &num_of_vtx))
-			exit_me(ERR_FMT);
+			exit_with_msg(ERR_FMT);
 		if (num_of_vtx == 3)
 		{
 			if (fscanf(f_stream, "%99d %99d %99d", &faces[i].v1, \
 					&faces[i].v2, &faces[i].v3) != 3)
-				exit_me(ERR_FMT);
+				exit_with_msg(ERR_FMT);
 			i++;
 		}
 		else
@@ -97,13 +97,13 @@ void	*set_vertexes(t_ply *ply, FILE *f_stream)
 	ply->vertexes = (t_vector *)malloc(sizeof(t_vector) * ply->elem_vertexes);
 	ply->faces = (t_face *)malloc(sizeof(t_face) * ply->elem_faces);
 	if (ply->vertexes == NULL || ply->faces == NULL)
-		exit_me(ERR_MALLOC);
+		exit_with_msg(ERR_MALLOC);
 	vtx = ply->vertexes;
 	i = 0;
 	while (i++ < ply->elem_vertexes)
 	{
 		if (fscanf(f_stream, "%99f %99f %99f", &vtx->x, &vtx->y, &vtx->z) != 3)
-			exit_me(ERR_FMT);
+			exit_with_msg(ERR_FMT);
 		vtx->x *= DEF_ZOOM;
 		vtx->y *= DEF_ZOOM;
 		vtx->z *= DEF_ZOOM;

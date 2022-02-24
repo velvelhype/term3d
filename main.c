@@ -7,7 +7,7 @@ void	end(void)
 		system("leaks -q term3d");
 }
 
-int	exit_me(char *msg)
+int	exit_with_msg(char *msg)
 {
 	printf(TERM3D);
 	printf("%s", msg);
@@ -37,7 +37,7 @@ void	set_pxlchar(int ac, char *arg_chars, t_term *tm)
 			tm->charset_size = charset_size;
 		}
 		else
-			exit_me(ERR_TOO_SHORT);
+			exit_with_msg(ERR_TOO_SHORT);
 	}
 	else
 	{
@@ -54,7 +54,7 @@ int	main(int argc, char **argv)
 	t_ply	*ply;
 
 	if (!(argc == 2 || argc == 3))
-		exit_me(ERR_ARG);
+		exit_with_msg(ERR_ARG);
 	ply = parse_ply(argv[1]);
 	init_term(&tm);
 	set_pxlchar(argc, argv[2], &tm);

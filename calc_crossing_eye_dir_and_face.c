@@ -55,8 +55,8 @@ float	crossing_detection(t_vector eye_dir, t_term *tm,
 		tri.v2 = p->vertexes[p->faces[i].v3];
 		equations_return = simul_equations(tri, eye_dir, tm);
 		if (equations_return != -1)
-			try_update_forefront(tri, \
-			mult_vecs(&eye_dir, equations_return), forefront);
+			try_update_forefront(tri, mult_vecs(&eye_dir, equations_return), \
+					forefront);
 		i++;
 	}
 	return (-1);

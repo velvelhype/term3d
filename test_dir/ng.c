@@ -5,28 +5,9 @@
 int	main()
 {
 	char	*term3d = "/Users/tyamagis/term_3d_kamori/term3d";
-	/*
-	char	*f0[] = {term3d,
-		"/Users/tyamagis/term_3d_kamori/obj/invalid_files/00_dup_face.ply",
-		NULL};
-	char	*f1[] = {term3d,
-		"/Users/tyamagis/term_3d_kamori/obj/invalid_files/01_dup_vtx.ply",
-		NULL};
-		*/
 	char	*f2[] = {term3d,
 		"/Users/tyamagis/term_3d_kamori/obj/invalid_files/02_invalid_face.ply",
 		NULL};
-	char	*f3[] = {term3d,
-		"/Users/tyamagis/term_3d_kamori/obj/invalid_files/03_invalid_vertex.ply",
-		NULL};
-	/*
-	char	*f4[] = {term3d,
-		"/Users/tyamagis/term_3d_kamori/obj/invalid_files/04_few_vtx_in_face.ply",
-		NULL};
-	char	*f5[] = {term3d,
-		"/Users/tyamagis/term_3d_kamori/obj/invalid_files/05_large_coordinates.ply",
-		NULL};
-		*/
 	char	*f6[] = {term3d,
 		"/Users/tyamagis/term_3d_kamori/obj/invalid_files/06_many_vtx_in_face.ply",
 		NULL};
@@ -39,19 +20,13 @@ int	main()
 	char	*f9[] = {term3d,
 		"/Users/tyamagis/term_3d_kamori/obj/invalid_files/09_no_vertex.ply",
 		NULL};
-	/*
-	char	*f10[] = {term3d,
-		"/Users/tyamagis/term_3d_kamori/obj/invalid_files/10_same_vtx_in_face.ply",
-		NULL};
-		*/
 	char **tests[7];
 	tests[0] = f2;
-	tests[1] = f3;
-	tests[2] = f6;
-	tests[3] = f7;
-	tests[4] = f8;
-	tests[5] = f9;
-	tests[6] = NULL;
+	tests[1] = f6;
+	tests[2] = f7;
+	tests[3] = f8;
+	tests[4] = f9;
+	tests[5] = NULL;
 
 	int i = 0;
 	while(tests[i])

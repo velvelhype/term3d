@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:03:14 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/24 22:23:07 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/24 22:41:06 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	update_win_size(t_term *tm, char **data)
 		}
 		*data = (char *)malloc(data_size);
 		if (*data == NULL)
-			exit_me(ERR_MALLOC);
+			exit_with_msg(ERR_MALLOC);
 	}
 	return ;
 }

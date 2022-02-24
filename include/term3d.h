@@ -76,6 +76,6 @@ t_vector	calc_normal_vector(t_tri tri);
 float		calc_reflectance(t_vector eye_dir, t_forefront alb_info);
 void		try_update_forefront(t_tri t, t_vector e, t_forefront *front);
 void		loop_draw(t_term *tm, t_ply *ply);
-int			exit_me(char *s);
+int			exit_with_msg(char *s);
 
 #endif
