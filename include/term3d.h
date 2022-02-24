@@ -2,12 +2,22 @@
 # define TERM3D_H
 
 # define M_PI   3.14159265358979323846264338327950288
-# define ERR_ARG "term3d >> invalid argument\n"
-# define ERR_MALLOC "term3d >> malloc failed\n"
-# define NO_DISPLAY "term3d >> nothing to display. quit.\n"
-# define ERR_FMT "term3d >> file format err. quit.\n"
-# define ERR_PARSE "term3d >> something wrong during file parse\n"
 # define ROTATION 0.05f
+# define CAMERA_Z -100
+# define DEF_ZOOM 8
+# define MIN_CHARS 2
+# define DEF_CHARSET "-~=cxFX8NNNNN"
+# define SIZE_CHARSET 9
+# define THRESHOLD 0.4
+
+# define TERM3D "term3d >> "
+# define ERR_ARG "invalid argument\n"
+# define ERR_MALLOC "malloc failed\n"
+# define NO_DISPLAY "nothing to display. quit.\n"
+# define ERR_F_READ "error during file reading\n"
+# define ERR_FMT "file format err. quit.\n"
+# define ERR_PARSE "something wrong during file parse\n"
+# define ERR_TOO_SHORT "too short charset\n"
 
 # include "vector.h"
 # include <stdio.h>
