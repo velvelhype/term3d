@@ -2,6 +2,7 @@ NAME = term3d
 
 CC = gcc
 
+#CFLAGS = -O3 -Werror -Wall -Wextra
 CFLAGS = -O3 -Werror -Wall -Wextra -g -fsanitize=address
 SRCS = main.c \
 calc_crossing_eye_dir_and_face.c \

@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:03:14 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/02/24 21:45:47 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/02/24 21:55:25 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 #include "./include/parse_ply.h"
 #include "./include/vector.h"
 
-int	set_char(t_term *tm, float d, char *data)
+void	set_char(t_term *tm, float rflct, char *data)
 {
-	int		ret;
-	int		round;
+	int	round;
 
-	ret = 1;
-	round = (int)(d * tm->charset_size);
+	round = (int)(rflct * tm->charset_size);
 	if (round > 0 && round < tm->threshold)
 	{
 		*data = tm->charset[round];
@@ -29,11 +27,8 @@ int	set_char(t_term *tm, float d, char *data)
 	else if (round >= tm->threshold)
 		memset(data, tm->charset[round - tm->threshold + 1], 2);
 	else
-	{
 		memset(data, ' ', 2);
-		ret = 0;
-	}
-	return (ret);
+	return ;
 }
 
 void	rotate_vtx(t_term *tm, t_ply *ply)
@@ -56,14 +51,12 @@ void	rotate_vtx(t_term *tm, t_ply *ply)
 	return ;
 }
 
-int	calc_data(t_term *tm, t_ply *ply, char *data)
+void	calc_data(t_term *tm, t_ply *ply, char *data)
 {
-	float	d;
+	float	rflct;
 	int		x;
 	int		y;
-	int		ret;
 
-	ret = 0;
 	rotate_vtx(tm, ply);
 	y = tm->size;
 	while (y-- > 0)
@@ -71,16 +64,16 @@ int	calc_data(t_term *tm, t_ply *ply, char *data)
 		x = 0;
 		while (x < tm->size)
 		{
-			d = calc_crossing_eye_dir_and_face(x - tm->lim,
+			rflct = calc_crossing_eye_dir_and_face(x - tm->lim,
 												y - tm->lim, tm, ply);
-			ret += set_char(tm, d, data);
+			set_char(tm, rflct, data);
 			data += 2;
 			x++;
 		}
 		*data++ = '\n';
 	}
 	*data = '\0';
-	return (ret);
+	return ;
 }
 
 void	update_win_size(t_term *tm, char **data)
@@ -118,8 +111,7 @@ void	loop_draw(t_term *tm, t_ply *ply)
 	while (1)
 	{
 		update_win_size(tm, &data);
-		if (!calc_data(tm, ply, data))
-			exit_me(NO_DISPLAY);
+		calc_data(tm, ply, data);
 		fprintf(stderr, "\033[2J\033[2H");
 		fprintf(stderr, "%s", data);
 		usleep(16500);
